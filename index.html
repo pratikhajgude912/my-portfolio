@@ -993,7 +993,7 @@
         <button type="button" class="w3d-nav w3d-play" id="w3dPlay" data-play="1" aria-label="Pause the turning cards"><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
         <button type="button" class="w3d-nav" id="w3dPrev" aria-label="Previous project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
         <button type="button" class="w3d-nav" id="w3dNext" aria-label="Next project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
-        <a class="btn solid w3d-open" id="w3dOpen" href="#"><span id="w3dOpenT">Open project</span><span class="w3d-oi" id="w3dOpenI" aria-hidden="true"></span></a>
+        <a class="btn solid w3d-open" id="w3dOpen" href="https://ashra-filter.com/" target="_blank" rel="noopener noreferrer"><span id="w3dOpenT">Visit the live site</span><span class="w3d-oi" id="w3dOpenI" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
       </div>
       <p class="p-foot"><a href="https://www.behance.net/pratik08" target="_blank" rel="noopener noreferrer">See all my projects on Behance <span class="p-foot-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a></p>
     </div>
@@ -1367,8 +1367,11 @@
     var projOpener = null, lbOpener = null, lbI = 0, lbItems = [];
     function pad2(n) { return (n < 10 ? "0" : "") + n; }
     function openProject(from) { /* data-project="deck" opens #deckproj, "trend" opens #trendproj, "tarribaj" opens #tarribajproj */
-      var el = document.getElementById(((from && from.getAttribute("data-project")) || "deck") + "proj"); if (!el) return;
-      projOpener = from || null; projEl = el;
+      var key = typeof from === "string" ? from : (from && from.getAttribute ? from.getAttribute("data-project") : null);
+      if (!key) key = "deck";
+      if (key.indexOf("proj") === key.length - 4) key = key.slice(0, -4);
+      var el = document.getElementById(key + "proj"); if (!el) return;
+      projOpener = (typeof from === "object" ? from : w3Open) || null; projEl = el;
       el.classList.add("open"); el.setAttribute("aria-hidden", "false"); el.scrollTop = 0; pageEl.inert = true;
       var back = el.querySelector(".pj-back"); if (back) back.focus({ preventScroll: true });
     }
@@ -1562,13 +1565,14 @@
       if (j !== w3.cur) { w3.cur = j; w3Now(true); }
     }
     function w3Btn(p) { /* the Open button follows the front card: a project view opens on this site, the others open in a new tab */
+      if (!p) return;
       if (p.pj) {
         w3Open.setAttribute("href", "#" + p.pj); w3Open.setAttribute("data-project", p.pj); w3Open.setAttribute("role", "button"); w3Open.setAttribute("aria-haspopup", "dialog");
         w3Open.removeAttribute("target"); w3Open.removeAttribute("rel");
         w3OpenT.textContent = "Open project"; w3OpenI.innerHTML = ICO_GO; w3Open.setAttribute("aria-label", "Open project: " + p.t);
       } else {
-        var bh = p.href.indexOf("behance.net") > -1;
-        w3Open.setAttribute("href", p.href); w3Open.setAttribute("target", "_blank"); w3Open.setAttribute("rel", "noopener noreferrer");
+        var bh = p.href && p.href.indexOf("behance.net") > -1;
+        w3Open.setAttribute("href", p.href || "#"); w3Open.setAttribute("target", "_blank"); w3Open.setAttribute("rel", "noopener noreferrer");
         w3Open.removeAttribute("data-project"); w3Open.removeAttribute("role"); w3Open.removeAttribute("aria-haspopup");
         w3OpenT.textContent = bh ? "View on Behance" : "Visit the live site"; w3OpenI.innerHTML = ICO_OUT; w3Open.setAttribute("aria-label", (bh ? "View on Behance: " : "Visit the live site: ") + p.t + " (opens in a new tab)");
       }
@@ -1608,7 +1612,20 @@
       if (!el) return;
       var s = +el.getAttribute("data-slot"), a = mod(Math.round(w3.P), w3.M), d = s - a;
       if (d > w3.M / 2) d -= w3.M; else if (d < -w3.M / 2) d += w3.M;
-      if (d === 0) w3Open.click(); else { w3Live("polite"); w3Go(Math.round(w3.P) + d); }
+      if (d === 0) {
+        var curIdx = w3.slots[mod(Math.round(w3.P), w3.M)];
+        var p = W3[w3.active[curIdx]];
+        if (p) {
+          if (p.pj) {
+            openProject(p.pj);
+          } else if (p.href) {
+            window.open(p.href, "_blank", "noopener,noreferrer");
+          }
+        }
+      } else {
+        w3Live("polite");
+        w3Go(Math.round(w3.P) + d);
+      }
     }
     function w3SetPlay(on) { w3.play = on; w3Play.setAttribute("data-play", on ? "1" : "0"); w3Play.setAttribute("aria-label", on ? "Pause the turning cards" : "Play the turning cards"); }
     function w3Init() {
@@ -1617,7 +1634,24 @@
       w3Prev.addEventListener("click", function () { w3Step(-1); });
       w3Next.addEventListener("click", function () { w3Step(1); });
       w3Play.addEventListener("click", function () { w3SetPlay(!w3.play); });
-      w3Open.addEventListener("click", function (e) { if (w3Open.getAttribute("data-project")) { e.preventDefault(); openProject(w3Open); } });
+      w3Open.addEventListener("click", function (e) {
+        var dp = w3Open.getAttribute("data-project");
+        if (dp) {
+          e.preventDefault();
+          openProject(w3Open);
+          return;
+        }
+        var href = w3Open.getAttribute("href");
+        if (!href || href === "#") {
+          e.preventDefault();
+          var curIdx = w3.slots[mod(Math.round(w3.P), w3.M)];
+          var p = W3[w3.active[curIdx]];
+          if (p) {
+            if (p.pj) openProject(p.pj);
+            else if (p.href) window.open(p.href, "_blank", "noopener,noreferrer");
+          }
+        }
+      });
       if (window.ResizeObserver) new ResizeObserver(w3Measure).observe(w3Stage); else window.addEventListener("resize", w3Measure);
       document.addEventListener("visibilitychange", w3Wake);
       /* the cursor: tilts the front card, and pauses the turning while it rests on it */
@@ -1766,7 +1800,7 @@
     var workBtn = document.querySelector("[data-work]");
     if (workBtn) workBtn.addEventListener("click", function (e) { e.preventDefault(); openWork(); });
     /* placeholder links ("#") do nothing until you add real addresses */
-    Array.prototype.forEach.call(document.querySelectorAll('a[href="#"]'), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); }); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#"]:not(#w3dOpen):not(#hf-wa):not(#hf-web)'), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); }); });
 
     /* ---- Hire me popup ----
        Both "Hire me" buttons open it. Sending posts the name, email, service and message to your Google Apps Script web app (FORM_ENDPOINT).

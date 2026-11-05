@@ -1,0 +1,8 @@
+{
+  "name": "Pratik Hajgude - Creative & UI/UX Designer Portfolio",
+  "description": "Portfolio of Pratik Hajgude, Creative & UI/UX Designer featuring interactive 3D work showcase, case studies, resume viewer, and contact inquiry.",
+  "prompt": "Portfolio of Pratik Hajgude, creative and UI/UX designer",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
