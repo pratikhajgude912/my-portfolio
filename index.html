@@ -76,6 +76,7 @@
   body.work-on .pill { background: rgba(28, 5, 2, 0.86); } /* the bright project tiles scroll under the header on the Work page, so the pill stays dark enough to read */
   .logo { grid-column: 1; grid-row: 1; justify-self: start; display: block; line-height: 0; color: #fff; text-decoration: none; }
   .sig { display: block; width: calc(206 * var(--s)); min-width: 130px; height: auto; aspect-ratio: 446.5 / 94; fill: currentColor; }
+  .logo .mark { display: block; width: auto; height: max(46px, calc(58 * var(--s))); aspect-ratio: 854 / 363; } /* the full Prarts logo with its tagline in the header (white lettering, orange and peach mark; a transparent image) */
   .tabs { grid-column: 2; grid-row: 1; display: flex; align-items: center; }
   .tabs a {
     display: block; padding: 9px max(12px, calc(30 * var(--s))); white-space: nowrap; text-decoration: none;
@@ -100,7 +101,6 @@
   .tabs a[href="#home"], .tabs a[data-resume] { display: none; } /* the logo is the way home, and the rail has the Resume button; Home and Resume show in the phone menu only */
   .search { grid-column: 3; grid-row: 1; display: block; width: 21px; height: 21px; box-sizing: content-box; padding: 9.5px; margin: -9.5px; border: 0; background: none; color: #fff; cursor: pointer; border-radius: 50%; }
   .search svg { display: block; width: 21px; height: 21px; }
-  .search:hover { background: rgba(255, 255, 255, 0.14); }
   .hire {
     display: none; justify-self: end; white-space: nowrap; text-decoration: none; cursor: pointer;
     color: var(--ink); background: var(--orange); border-radius: 999px; font-weight: 600; font-size: 15px; padding: 10px 22px; transition: background 0.15s;
@@ -153,7 +153,6 @@
     display: grid; place-items: center; width: var(--rc); height: var(--rc); border-radius: 50%; border: 1.4px solid #fff; color: #fff; text-decoration: none;
     transition: background 0.2s, transform 0.2s;
   }
-  .rb:hover, .rb:focus-visible { background: rgba(255, 255, 255, 0.18); transform: scale(1.06); }
   .rb i svg { width: 62%; height: 62%; } /* solid glyph, same weight as the "in" and "Bē" lettering */
   .rb i {
     display: grid; place-items: center; width: 68%; height: 68%; border-radius: 50%; background: #fff; color: var(--orange);
@@ -164,7 +163,6 @@
     font: 600 max(14px, calc(17 * var(--s)))/1 var(--font); text-shadow: 0 1px 8px rgba(28, 5, 2, 0.3); transition: background 0.2s;
   }
   .hv span { writing-mode: vertical-rl; transform: rotate(180deg); }
-  .hv:hover, .hv:focus-visible { background: rgba(255, 255, 255, 0.18); }
 
   body.work-on .hero, body.work-on .about { opacity: 0; pointer-events: none; }
   .about { transition: opacity 0.3s; }
@@ -395,7 +393,7 @@
   .w-chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .w-chips button { font: 500 14px/1 var(--font); padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.3); background: transparent; color: #fff; cursor: pointer; transition: border-color 0.25s, background 0.25s, color 0.25s; }
   .w-chips button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-  .w-chips button[aria-pressed="true"] { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+  .w-chips button[aria-pressed="true"] { background: linear-gradient(115deg, #ffe7ad, #ffb84d); border-color: #ffcf7d; color: #5e0b02; } /* the chosen tab is the same gold as the hover */
   .page {
     position: fixed; inset: 0; z-index: 4; overflow-y: auto; overscroll-behavior: contain; color-scheme: dark; color: #fff;
     background: radial-gradient(ellipse 70% 460px at 92% 0%, rgba(226, 74, 26, 0.26), rgba(226, 74, 26, 0) 70%), linear-gradient(180deg, #1f0b07, #090605 min(1000px, 100svh)), #090605; /* the same deep ink and orange glow as the Experience sheet */
@@ -424,10 +422,10 @@
   .pj-wide:first-child .pj-open img { border-radius: max(10px, calc(16 * var(--s))); }
   .pj-num { position: absolute; left: 16px; bottom: 16px; padding: 4px 9px; border-radius: 999px; background: rgba(6, 4, 3, 0.72); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; color: #fff; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
   .pj-open:hover + .pj-num, .pj-open:focus-visible + .pj-num { opacity: 1; }
-  #deckproj.open .pj-slide { animation: pjIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(min(var(--i, 0), 5) * 80ms + 250ms); }
+  #deckproj.open .pj-slide, #ngoproj.open .pj-slide, #olympproj.open .pj-slide { animation: pjIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(min(var(--i, 0), 5) * 80ms + 250ms); }
   @keyframes pjIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
   @media (max-width: 599px) { .pj-grid { grid-template-columns: minmax(0, 1fr); } }
-  @media (prefers-reduced-motion: reduce) { #deckproj.open .pj-slide { animation: none; } .pj-open { transition: none; } .pj-open:hover { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { #deckproj.open .pj-slide, #ngoproj.open .pj-slide, #olympproj.open .pj-slide { animation: none; } .pj-open { transition: none; } .pj-open:hover { transform: none; } }
   /* the page viewer: one page at a time, large */
   .lb { position: fixed; inset: 0; z-index: 60; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 18px; background: rgba(6, 4, 3, 0.93); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0s 0.3s; }
   .lb.on { opacity: 1; visibility: visible; transition: opacity 0.3s; }
@@ -441,7 +439,6 @@
   .lb-x { position: absolute; top: 14px; right: 14px; z-index: 1; }
   @media (prefers-reduced-motion: reduce) { .lb, .lb.on { transition: none; } }
   .p-foot a { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.3); color: #fff; font-weight: 500; text-decoration: none; transition: border-color 0.25s, background 0.25s; }
-  .p-foot a:hover { border-color: var(--orange); background: rgba(226, 74, 26, 0.14); }
   .p-foot a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .p-foot-go { display: grid; place-items: center; width: 18px; height: 18px; } .p-foot-go svg { width: 18px; height: 18px; }
   .p-foot { margin: calc(32 * var(--s)) 0 0; text-align: left; font-size: 14px; color: rgba(255, 255, 255, 0.55); }
@@ -466,24 +463,24 @@
   .w3d { position: fixed; z-index: 0; top: 0; right: 0; bottom: 0; width: 62%; overflow: hidden; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
   .w3d-cam { position: absolute; inset: 0; display: grid; place-items: center; perspective: 1350px; transition: opacity 0.26s; } /* the fade sits here, not on the ring: a fading element would flatten the 3D scene inside it */
   .w3d-cam.swap { opacity: 0; }
-  .w3d-ring { --cw: 336px; --ch: 211px; --u: 1; position: relative; width: var(--cw); height: var(--ch); transform-style: preserve-3d; } /* --u scales everything on a card (it was drawn 336px wide) */
+  .w3d-ring { --cw: 336px; --ch: 211px; --u: 1; --k: 1; --ki: 1; position: absolute; left: 50%; top: 50%; margin: calc(var(--ch) / -2) 0 0 calc(var(--cw) / -2); width: var(--cw); height: var(--ch); transform-style: preserve-3d; transform: scale3d(var(--ki), var(--ki), var(--ki)); } /* the whole scene is built --k times larger and scaled back down here: with a perspective the browser draws a card at its flat size and then enlarges it (about 1.4 times for the front card), which blurs it, so it is drawn bigger first. Everything inside that is a fixed number of pixels uses --k */ /* --u scales everything on a card (it was drawn 336px wide) */
   .w3d-card { position: absolute; inset: 0; transform-style: preserve-3d; cursor: pointer; will-change: transform; }
-  .w3d-l { position: absolute; inset: 0; overflow: hidden; pointer-events: none; border-radius: calc(16px * var(--u)); border: 1px solid rgba(255, 255, 255, 0.15); }
+  .w3d-l { position: absolute; inset: 0; overflow: hidden; pointer-events: none; border-radius: calc(16px * var(--u)); border: calc(1px * var(--k)) solid rgba(255, 255, 255, 0.15); }
   .w3d-mid { border-color: #808080; background: #808080; } /* the three middle slices give the card its edge */
-  .w3d-front, .w3d-back { background: #0f0f0f; -webkit-backface-visibility: hidden; backface-visibility: hidden; box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15); }
-  .w3d-front { transform: translateZ(1.47px); }
-  .w3d-back { transform: translateZ(-1.47px) rotateX(180deg); }
+  .w3d-front, .w3d-back { background: #0f0f0f; -webkit-backface-visibility: hidden; backface-visibility: hidden; box-shadow: inset 0 calc(1px * var(--k)) calc(1px * var(--k)) rgba(255, 255, 255, 0.15); }
+  .w3d-front { transform: translateZ(calc(1.47px * var(--k))); }
+  .w3d-back { transform: translateZ(calc(-1.47px * var(--k))) rotateX(180deg); }
   .w3d-l img.cover { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-width: none; }
   .w3d-l img.cover.gone { display: none; }
   .w3d-ui { position: absolute; inset: 0; color: #fff; background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 40%), rgba(0, 0, 0, 0.1); } /* a soft shade at the top keeps the signature readable on a white cover */
-  .w3d-chip { position: absolute; left: calc(22px * var(--u)); top: calc(18px * var(--u)); width: calc(26px * var(--u)); height: calc(26px * var(--u)); filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.35)); } /* top left, level with the signature, so it never covers a cover's own text */
-  .w3d-logo { position: absolute; right: calc(22px * var(--u)); top: calc(21px * var(--u)); width: calc(92px * var(--u)); height: auto; aspect-ratio: 446.5 / 94; fill: currentColor; opacity: 0.95; filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.45)); }
+  .w3d-chip { position: absolute; left: calc(22px * var(--u)); top: calc(18px * var(--u)); width: calc(26px * var(--u)); height: calc(26px * var(--u)); filter: drop-shadow(0 calc(1px * var(--k)) calc(4px * var(--k)) rgba(0, 0, 0, 0.35)); } /* top left, level with the signature, so it never covers a cover's own text */
+  .w3d-logo { position: absolute; right: calc(22px * var(--u)); top: calc(21px * var(--u)); width: calc(92px * var(--u)); height: auto; aspect-ratio: 446.5 / 94; fill: currentColor; opacity: 0.95; filter: drop-shadow(0 calc(1px * var(--k)) calc(6px * var(--k)) rgba(0, 0, 0, 0.45)); }
   .w3d-dots { position: absolute; right: calc(24px * var(--u)); bottom: calc(24px * var(--u)); display: flex; }
-  .w3d-dots i { display: block; width: calc(24px * var(--u)); height: calc(24px * var(--u)); border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.2); }
+  .w3d-dots i { display: block; width: calc(24px * var(--u)); height: calc(24px * var(--u)); border-radius: 50%; border: calc(1px * var(--k)) solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.2); }
   .w3d-dots i + i { margin-left: calc(-12px * var(--u)); background: rgba(255, 255, 255, 0.35); }
   .w3d-blur { position: absolute; inset: 0; overflow: hidden; transform: scale(1.15); filter: blur(calc(16px * var(--u))); background: linear-gradient(135deg, #2a1a14, #120c0a); }
   .w3d-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.62)); } /* keeps the details readable on a light cover */
-  .w3d-strip { position: absolute; left: 0; right: 0; top: calc(20px * var(--u)); height: calc(36px * var(--u)); background: rgba(0, 0, 0, 0.85); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .w3d-strip { position: absolute; left: 0; right: 0; top: calc(20px * var(--u)); height: calc(36px * var(--u)); background: rgba(0, 0, 0, 0.85); -webkit-backdrop-filter: blur(calc(6px * var(--k))); backdrop-filter: blur(calc(6px * var(--k))); }
   .w3d-info { position: absolute; left: calc(24px * var(--u)); right: calc(24px * var(--u)); bottom: calc(20px * var(--u)); text-align: left; font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
   .w3d-no { font-size: calc(12px * var(--u)); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .w3d-sub { margin-top: calc(4px * var(--u)); font-size: calc(9px * var(--u)); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -526,6 +523,31 @@
   }
   @media (max-width: 599px) { .pj-grid.pj-3 { grid-template-columns: minmax(0, 1fr); } .pj-grid.pj-3 .pj-slide:last-child:nth-child(odd) { width: auto; } }
   @media (prefers-reduced-motion: reduce) { #tarribajproj.open .pj-slide { animation: none; } }
+  /* Fresh Farm's project view: the cover beside the introduction, then the app's screens in chapters, five to a row */
+  .ff-hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: max(24px, calc(56 * var(--s))); align-items: center; }
+  .ff-cover { position: relative; isolation: isolate; margin: 0; }
+  .ff-cover::before { content: ""; position: absolute; z-index: -1; inset: -8% -4%; background: radial-gradient(50% 50% at 50% 50%, rgba(226, 74, 26, 0.26), rgba(226, 74, 26, 0) 70%); filter: blur(34px); pointer-events: none; }
+  .ff-frame { padding: 6px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.16); background: #0b0908; box-shadow: 0 26px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); }
+  .ff-frame img { display: block; width: 100%; height: auto; aspect-ratio: 1440 / 1024; border-radius: 10px; background: #232323; }
+  .ff-facts { display: flex; flex-wrap: wrap; gap: 14px 34px; margin: 6px 0 0; }
+  .ff-facts dt { margin: 0 0 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); }
+  .ff-facts dd { margin: 0; font-size: 15px; color: #fff; }
+  .ff-sec { margin-top: calc(72 * var(--s)); }
+  .ff-h { display: flex; align-items: baseline; gap: 14px; margin: 0 0 calc(24 * var(--s)); padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.12); font: 500 13px/1.2 var(--font); letter-spacing: 0.18em; text-transform: uppercase; color: #fff; }
+  .ff-h span { color: var(--orange); }
+  .ff-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: max(14px, calc(24 * var(--s))); }
+  .ff-slide .pj-open { padding: 5px; border-radius: 24px; }
+  .ff-slide .pj-open img { aspect-ratio: 9 / 20; object-fit: cover; border-radius: 19px; }
+  .ff-cap { display: flex; align-items: baseline; gap: 10px; margin-top: 12px; padding: 0 6px; font-size: 13px; color: rgba(255, 255, 255, 0.78); }
+  .ff-cap b { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--orange); }
+  .ff-end { margin: calc(64 * var(--s)) 0 0; }
+  #freshproj.open .pj-slide { animation: pjIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(min(var(--i, 0), 5) * 80ms + 250ms); }
+  @media (max-width: 899px) {
+    .ff-hero { grid-template-columns: minmax(0, 1fr); }
+    .ff-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 599px) { .ff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .ff-slide .pj-open { border-radius: 20px; } .ff-slide .pj-open img { border-radius: 15px; } .ff-sec { margin-top: 48px; } }
+  @media (prefers-reduced-motion: reduce) { #freshproj.open .pj-slide { animation: none; } }
   /* the page viewer, for a long page: the page scrolls inside it, top to bottom */
   .lb.tall { align-items: stretch; }
   .lb.tall .lb-fig { align-self: stretch; justify-content: flex-start; gap: 0; max-height: calc(100svh - 36px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.35) transparent; }
@@ -539,6 +561,7 @@
     .pill { background: rgba(34, 10, 6, 0.9); -webkit-backdrop-filter: none; backdrop-filter: none; } /* no live blur over the moving video on phones: lighter on the battery */
     .logo { grid-column: 1; grid-row: 1; }
     .sig { width: 150px; min-width: 0; }
+    .logo .mark { height: 44px; }
     .search { display: none; }
     .hire { display: block; grid-column: 2; grid-row: 1; padding: 9px 18px; }
     .menu-btn {
@@ -706,7 +729,6 @@
   .c-sq, .c-ti { display: grid; place-items: center; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.05); color: #fff; text-decoration: none; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s; }
   .c-sq { width: 42px; height: 42px; font: 800 14px/1 var(--font); font-style: normal; letter-spacing: -0.03em; }
   .c-sq svg, .c-ti svg { width: 18px; height: 18px; }
-  .c-sq:hover, .c-sq:focus-visible { background: #fff; color: var(--orange); transform: translateY(-3px); }
   /* the form: a frosted dark card, two fields side by side, a tall message box and a full-width white button */
   .c-form { display: grid; gap: 14px; padding: max(14px, calc(22 * var(--s))); border-radius: max(22px, calc(30 * var(--s))); border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)), #0d0908; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06); }
   .cf-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
@@ -762,43 +784,63 @@
   }
   @media (prefers-reduced-motion: reduce) { .c-sq, .c-ti, .c-alt, .cf-in, .c-top svg { transition: none; } .c-sq:hover, .c-sq:focus-visible, .c-top:hover svg, .c-top:focus-visible svg { transform: none; } }
 
-  /* Button hover (script at the end of the page). On every button a fill spreads out from the exact spot where the cursor enters, the label changes colour as it passes, the button lifts a little and the arrow nudges forward; when the cursor leaves, the fill pulls back to where it left. Gold and white buttons fill with gold (like "Explore My Universe"), outline buttons and the round controls fill white (like "Let's Create"). Phones show it while a button is pressed; reduced motion gets the same colour change with no travel. */
-  .btn, .hire, .w3d-nav, .w-chips button, .rs-x, .hf-x, .pj-back, .lb-nav, .lb-x { --fx-bg: #fff; --fx-fg: #8f1004; overflow: hidden; isolation: isolate; }
-  .btn, .hire, .w3d-nav, .w-chips button, .rs-x, .pj-back, .lb-nav { position: relative; }
-  .btn.solid, .hire { --fx-bg: linear-gradient(115deg, #ffe7ad, #ffb84d); --fx-fg: #5e0b02; }
-  .hire { --fx-fg: var(--ink); }
-  .btn::before, .hire::before, .w3d-nav::before, .w-chips button::before, .rs-x::before, .hf-x::before, .pj-back::before, .lb-nav::before, .lb-x::before {
+  /* Button hover (script at the end of the page). On every button a fill spreads out from the exact spot where the cursor enters, the label changes colour as it passes, the button lifts a little and the arrow nudges forward; when the cursor leaves, the fill pulls back to where it left. Every button fills with the same gold as "Explore My Universe", with the same deep brown label and soft gold glow. Phones show it while a button is pressed; reduced motion gets the same colour change with no travel. */
+  .btn, .hire, .w3d-nav, .w-chips button, .rs-x, .hf-x, .pj-back, .lb-nav, .lb-x, .search, .menu-btn, .c-sq, .p-foot a { --fx-bg: linear-gradient(115deg, #ffe7ad, #ffb84d); --fx-fg: #5e0b02; overflow: hidden; isolation: isolate; }
+  .btn, .hire, .w3d-nav, .w-chips button, .rs-x, .pj-back, .lb-nav, .search, .menu-btn, .c-sq, .p-foot a { position: relative; }
+  .p-foot-go svg { transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
+  .btn::before, .hire::before, .w3d-nav::before, .w-chips button::before, .rs-x::before, .hf-x::before, .pj-back::before, .lb-nav::before, .lb-x::before, .search::before, .menu-btn::before, .c-sq::before, .p-foot a::before {
     content: ""; position: absolute; z-index: -1; left: var(--hx, 50%); top: var(--hy, 50%); width: 250%; aspect-ratio: 1; border-radius: 50%; background: var(--fx-bg); pointer-events: none;
     transform: translate(-50%, -50%) scale(0); transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
   .btn, .hire { transition: color 0.25s ease 0.12s, border-color 0.3s, transform 0.3s, box-shadow 0.45s; }
-  .w3d-nav, .w-chips button, .rs-x, .hf-x, .pj-back, .lb-nav, .lb-x { transition: color 0.25s ease 0.12s, border-color 0.3s, transform 0.3s, box-shadow 0.45s; }
+  .w3d-nav, .w-chips button, .rs-x, .hf-x, .pj-back, .lb-nav, .lb-x, .search, .menu-btn, .c-sq, .p-foot a { transition: color 0.25s ease 0.12s, border-color 0.3s, transform 0.3s, box-shadow 0.45s; }
   .lb-nav { position: relative; }
   @media (max-width: 900px) { .lb-nav { position: absolute; } }
   .btn:focus-visible { border-radius: 999px; } /* the page's generic link focus ring squares the corners; keep the pill shape */
   .btn svg, .w3d-nav svg, .lb-nav svg, .pj-back svg { transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1); }
   .btn[disabled]::before, .w3d-nav[disabled]::before, .w-chips button[aria-pressed="true"]::before { display: none; }
-  .btn:not([disabled]):focus-visible, .hire:focus-visible, .w3d-nav:not([disabled]):focus-visible, .w-chips button:not([aria-pressed="true"]):focus-visible, .rs-x:focus-visible, .hf-x:focus-visible, .pj-back:focus-visible, .lb-nav:focus-visible, .lb-x:focus-visible, .btn:not([disabled]):active, .hire:active, .w3d-nav:not([disabled]):active, .w-chips button:not([aria-pressed="true"]):active, .rs-x:active, .hf-x:active, .pj-back:active, .lb-nav:active, .lb-x:active { color: var(--fx-fg); }
-  .btn:not([disabled]):focus-visible::before, .hire:focus-visible::before, .w3d-nav:not([disabled]):focus-visible::before, .w-chips button:not([aria-pressed="true"]):focus-visible::before, .rs-x:focus-visible::before, .hf-x:focus-visible::before, .pj-back:focus-visible::before, .lb-nav:focus-visible::before, .lb-x:focus-visible::before, .btn:not([disabled]):active::before, .hire:active::before, .w3d-nav:not([disabled]):active::before, .w-chips button:not([aria-pressed="true"]):active::before, .rs-x:active::before, .hf-x:active::before, .pj-back:active::before, .lb-nav:active::before, .lb-x:active::before { transform: translate(-50%, -50%) scale(1); }
+  .btn:not([disabled]):focus-visible, .hire:focus-visible, .w3d-nav:not([disabled]):focus-visible, .w-chips button:not([aria-pressed="true"]):focus-visible, .rs-x:focus-visible, .hf-x:focus-visible, .pj-back:focus-visible, .lb-nav:focus-visible, .lb-x:focus-visible, .search:focus-visible, .menu-btn:focus-visible, .c-sq:focus-visible, .p-foot a:focus-visible, .btn:not([disabled]):active, .hire:active, .w3d-nav:not([disabled]):active, .w-chips button:not([aria-pressed="true"]):active, .rs-x:active, .hf-x:active, .pj-back:active, .lb-nav:active, .lb-x:active, .search:active, .menu-btn:active, .c-sq:active, .p-foot a:active { color: var(--fx-fg); }
+  .btn:not([disabled]):focus-visible::before, .hire:focus-visible::before, .w3d-nav:not([disabled]):focus-visible::before, .w-chips button:not([aria-pressed="true"]):focus-visible::before, .rs-x:focus-visible::before, .hf-x:focus-visible::before, .pj-back:focus-visible::before, .lb-nav:focus-visible::before, .lb-x:focus-visible::before, .search:focus-visible::before, .menu-btn:focus-visible::before, .c-sq:focus-visible::before, .p-foot a:focus-visible::before, .btn:not([disabled]):active::before, .hire:active::before, .w3d-nav:not([disabled]):active::before, .w-chips button:not([aria-pressed="true"]):active::before, .rs-x:active::before, .hf-x:active::before, .pj-back:active::before, .lb-nav:active::before, .lb-x:active::before, .search:active::before, .menu-btn:active::before, .c-sq:active::before, .p-foot a:active::before { transform: translate(-50%, -50%) scale(1); }
   .btn:active, .hire:active { transform: scale(0.97); }
   @media (hover: hover) and (pointer: fine) {
-    .btn:not([disabled]):hover, .hire:hover, .w3d-nav:not([disabled]):hover, .w-chips button:not([aria-pressed="true"]):hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover { color: var(--fx-fg); }
-    .btn:not([disabled]):hover::before, .hire:hover::before, .w3d-nav:not([disabled]):hover::before, .w-chips button:not([aria-pressed="true"]):hover::before, .rs-x:hover::before, .hf-x:hover::before, .pj-back:hover::before, .lb-nav:hover::before, .lb-x:hover::before { transform: translate(-50%, -50%) scale(1); }
-    .btn.line:not([disabled]):hover, .rs-bar .btn.line:hover, .w3d-nav:not([disabled]):hover, .w-chips button:not([aria-pressed="true"]):hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover { border-color: #fff; }
-    .btn:not([disabled]):hover, .hire:hover, .w3d-nav:not([disabled]):hover, .w-chips button:not([aria-pressed="true"]):hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover { transform: translateY(-2px); }
+    .btn:not([disabled]):hover, .hire:hover, .w3d-nav:not([disabled]):hover, .w-chips button:not([aria-pressed="true"]):hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover, .search:hover, .menu-btn:hover, .c-sq:hover, .p-foot a:hover { color: var(--fx-fg); }
+    .btn:not([disabled]):hover::before, .hire:hover::before, .w3d-nav:not([disabled]):hover::before, .w-chips button:not([aria-pressed="true"]):hover::before, .rs-x:hover::before, .hf-x:hover::before, .pj-back:hover::before, .lb-nav:hover::before, .lb-x:hover::before, .search:hover::before, .menu-btn:hover::before, .c-sq:hover::before, .p-foot a:hover::before { transform: translate(-50%, -50%) scale(1); }
+    .btn.line:not([disabled]):hover, .rs-bar .btn.line:hover, .w3d-nav:not([disabled]):hover, .w-chips button:not([aria-pressed="true"]):hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover, .search:hover, .menu-btn:hover, .c-sq:hover, .p-foot a:hover { border-color: #ffcf7d; }
+    .btn:not([disabled]):hover, .hire:hover, .w3d-nav:not([disabled]):hover, .w-chips button:not([aria-pressed="true"]):hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover, .search:hover, .menu-btn:hover, .c-sq:hover, .p-foot a:hover { transform: translateY(-2px); }
     .btn:not([disabled]):hover:active, .hire:hover:active { transform: scale(0.97); }
     .btn.solid:not([disabled]):hover { box-shadow: 0 14px 30px -14px rgba(255, 184, 77, 0.8); }
-    .btn.line:not([disabled]):hover, .w3d-nav:not([disabled]):hover, .w-chips button:not([aria-pressed="true"]):hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover { box-shadow: 0 14px 30px -16px rgba(255, 255, 255, 0.65); }
+    .btn.line:not([disabled]):hover, .w3d-nav:not([disabled]):hover, .w-chips button:not([aria-pressed="true"]):hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover, .search:hover, .menu-btn:hover, .c-sq:hover, .p-foot a:hover { box-shadow: 0 14px 30px -14px rgba(255, 184, 77, 0.8); }
     .btn:not([disabled]):hover svg { transform: translateX(4px); }
+    .p-foot a:hover .p-foot-go svg { transform: translate(3px, -3px); }
     .btn.rs-dl:hover svg { transform: translateY(2px); }
     .btn.rs-print:hover svg { transform: none; }
     #w3dPrev:hover svg { transform: translateY(-3px); } #w3dNext:hover svg { transform: translateY(3px); }
     .lb-prev:hover svg, .pj-back:hover svg { transform: translateX(-3px); } .lb-next:hover svg { transform: translateX(3px); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .btn::before, .hire::before, .w3d-nav::before, .w-chips button::before, .rs-x::before, .hf-x::before, .pj-back::before, .lb-nav::before, .lb-x::before { transition: none; left: 50%; top: 50%; }
-    .btn, .hire, .w3d-nav, .w-chips button, .rs-x, .hf-x, .pj-back, .lb-nav, .lb-x, .btn svg, .w3d-nav svg, .lb-nav svg, .pj-back svg { transition: color 0.15s, border-color 0.15s; }
-    .btn:hover, .hire:hover, .w3d-nav:hover, .w-chips button:hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover, .btn:active, .hire:active, .w3d-nav:active, .w-chips button:active, .rs-x:active, .hf-x:active, .pj-back:active, .lb-nav:active, .lb-x:active, .btn:hover svg, .w3d-nav:hover svg, .lb-nav:hover svg, .pj-back:hover svg { transform: none !important; }
+    .btn::before, .hire::before, .w3d-nav::before, .w-chips button::before, .rs-x::before, .hf-x::before, .pj-back::before, .lb-nav::before, .lb-x::before, .search::before, .menu-btn::before, .c-sq::before, .p-foot a::before { transition: none; left: 50%; top: 50%; }
+    .btn, .hire, .w3d-nav, .w-chips button, .rs-x, .hf-x, .pj-back, .lb-nav, .lb-x, .search, .menu-btn, .c-sq, .p-foot a, .btn svg, .w3d-nav svg, .lb-nav svg, .pj-back svg { transition: color 0.15s, border-color 0.15s; }
+    .btn:hover, .hire:hover, .w3d-nav:hover, .w-chips button:hover, .rs-x:hover, .hf-x:hover, .pj-back:hover, .lb-nav:hover, .lb-x:hover, .search:hover, .menu-btn:hover, .c-sq:hover, .p-foot a:hover, .btn:active, .hire:active, .w3d-nav:active, .w-chips button:active, .rs-x:active, .hf-x:active, .pj-back:active, .lb-nav:active, .lb-x:active, .search:active, .menu-btn:active, .c-sq:active, .p-foot a:active, .btn:hover svg, .w3d-nav:hover svg, .lb-nav:hover svg, .pj-back:hover svg { transform: none !important; }
+  }
+
+  /* the round social buttons and the "Hire me" tab on the left rail already use ::before for the rail's connecting line, so their gold fill is drawn with ::after and revealed by a circle that grows from where the cursor enters */
+  .rb, .hv { --fx-bg: linear-gradient(115deg, #ffe7ad, #ffb84d); --fx-fg: #5e0b02; isolation: isolate; transition: color 0.25s ease 0.12s, border-color 0.3s, transform 0.3s, box-shadow 0.45s; }
+  .rb::after, .hv::after { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: var(--fx-bg); pointer-events: none; clip-path: circle(0 at var(--hx, 50%) var(--hy, 50%)); transition: clip-path 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .rb i { transition: color 0.25s ease 0.12s; }
+  .rb:focus-visible, .hv:focus-visible, .rb:active, .hv:active { color: var(--fx-fg); }
+  .rb:focus-visible i, .rb:active i { color: var(--fx-fg); }
+  .rb:focus-visible::after, .hv:focus-visible::after, .rb:active::after, .hv:active::after { clip-path: circle(145% at var(--hx, 50%) var(--hy, 50%)); }
+  @media (hover: hover) and (pointer: fine) {
+    .rb:hover, .hv:hover { color: var(--fx-fg); border-color: #ffcf7d; transform: translateY(-2px); box-shadow: 0 14px 30px -14px rgba(255, 184, 77, 0.8); }
+    .hv:hover { text-shadow: none; }
+    .rb:hover i { color: var(--fx-fg); }
+    .rb:hover::after, .hv:hover::after { clip-path: circle(145% at var(--hx, 50%) var(--hy, 50%)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rb, .hv, .rb i { transition: color 0.15s, border-color 0.15s; }
+    .rb::after, .hv::after { transition: none; clip-path: circle(0 at 50% 50%); }
+    .rb:hover::after, .hv:hover::after, .rb:focus-visible::after, .hv:focus-visible::after, .rb:active::after, .hv:active::after { clip-path: circle(145% at 50% 50%); }
+    .rb:hover, .hv:hover { transform: none; }
   }
 </style>
 </head>
@@ -821,7 +863,7 @@
 <div class="wrap">
   <header class="site-bar">
     <div class="pill">
-      <a class="logo" href="#home" aria-label="Pratik Hajgude, home"><svg class="sig" aria-hidden="true" viewBox="0 0 446.5 94"><use href="#sig"/></svg></a>
+      <a class="logo" href="#home" aria-label="Prarts by Pratik Hajgude, home"><img class="mark" src="prarts-logo.webp" alt="" width="854" height="363" decoding="async"></a>
       <nav class="tabs" id="nav" aria-label="Sections">
         <a href="#home" class="on" aria-current="page"><span class="tx"><span>Home</span><span aria-hidden="true">Home</span></span></a>
         <a href="#work"><span class="tx"><span>Work</span><span aria-hidden="true">Work</span></span></a>
@@ -993,7 +1035,7 @@
         <button type="button" class="w3d-nav w3d-play" id="w3dPlay" data-play="1" aria-label="Pause the turning cards"><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
         <button type="button" class="w3d-nav" id="w3dPrev" aria-label="Previous project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
         <button type="button" class="w3d-nav" id="w3dNext" aria-label="Next project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
-        <a class="btn solid w3d-open" id="w3dOpen" href="https://ashra-filter.com/" target="_blank" rel="noopener noreferrer"><span id="w3dOpenT">Visit the live site</span><span class="w3d-oi" id="w3dOpenI" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
+        <a class="btn solid w3d-open" id="w3dOpen" href="#"><span id="w3dOpenT">Open project</span><span class="w3d-oi" id="w3dOpenI" aria-hidden="true"></span></a>
       </div>
       <p class="p-foot"><a href="https://www.behance.net/pratik08" target="_blank" rel="noopener noreferrer">See all my projects on Behance <span class="p-foot-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a></p>
     </div>
@@ -1023,6 +1065,48 @@
         <figure class="pj-slide" style="--i:9"><button type="button" class="pj-open" data-i="9" aria-label="Look closer at page 10 of 12"><img src="deck-10.webp" alt="Deck page 10 of 12" width="1600" height="900" loading="lazy" decoding="async"></button><span class="pj-num" aria-hidden="true">10 / 12</span></figure>
         <figure class="pj-slide" style="--i:10"><button type="button" class="pj-open" data-i="10" aria-label="Look closer at page 11 of 12"><img src="deck-11.webp" alt="Deck page 11 of 12" width="1600" height="900" loading="lazy" decoding="async"></button><span class="pj-num" aria-hidden="true">11 / 12</span></figure>
         <figure class="pj-slide pj-wide" style="--i:11"><button type="button" class="pj-open" data-i="11" aria-label="Look closer at page 12 of 12"><img src="deck-12.webp" alt="Deck page 12 of 12" width="1600" height="900" loading="lazy" decoding="async"></button><span class="pj-num" aria-hidden="true">12 / 12</span></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="ngoproj" aria-label="Animal NGO Structure" aria-hidden="true">
+  <div class="page-in">
+    <div class="p-panel">
+      <button type="button" class="pj-back" data-pj-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to work</button>
+      <div class="p-head">
+        <p class="p-kicker">Presentation &amp; Deck Design</p>
+        <h2 class="p-title">Animal NGO Structure</h2>
+        <p class="p-lede">A 6-slide presentation deck. Every slide is below. Click one to look closer.</p>
+      </div>
+      <div class="pj-grid">
+        <figure class="pj-slide pj-wide" style="--i:0"><button type="button" class="pj-open" data-i="0" data-label="Cover" aria-label="Look closer at slide 1 of 6, Cover"><img src="animalngo-01.webp" alt="Cover slide, One Paw at a Time, with a man feeding a brown dog" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide" style="--i:1"><button type="button" class="pj-open" data-i="1" data-label="Rescue operations" aria-label="Look closer at slide 2 of 6, Rescue operations"><img src="animalngo-02.webp" alt="Overview of Rescue Operations: rescue, rehabilitation and rehoming" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide" style="--i:2"><button type="button" class="pj-open" data-i="2" data-label="Impact and outreach" aria-label="Look closer at slide 3 of 6, Impact and outreach"><img src="animalngo-03.webp" alt="Impact and Outreach, with dog and cat rescue counts and outreach initiatives" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide" style="--i:3"><button type="button" class="pj-open" data-i="3" data-label="Volunteer opportunities" aria-label="Look closer at slide 4 of 6, Volunteer opportunities"><img src="animalngo-04.webp" alt="Volunteer roles and the benefits of volunteering" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide" style="--i:4"><button type="button" class="pj-open" data-i="4" data-label="How to get involved" aria-label="Look closer at slide 5 of 6, How to get involved"><img src="animalngo-05.webp" alt="How to get involved: call to action and donation opportunities" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide pj-wide" style="--i:5"><button type="button" class="pj-open" data-i="5" data-label="Thank you" aria-label="Look closer at slide 6 of 6, Thank you"><img src="animalngo-06.webp" alt="Thank you slide" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="olympproj" aria-label="The Power of Social Media for Olympic Athletes" aria-hidden="true">
+  <div class="page-in">
+    <div class="p-panel">
+      <button type="button" class="pj-back" data-pj-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to work</button>
+      <div class="p-head">
+        <p class="p-kicker">Presentation &amp; Deck Design</p>
+        <h2 class="p-title">The Power of Social Media for Olympic Athletes</h2>
+        <p class="p-lede">A 6-slide presentation deck. Every slide is below. Click one to look closer.</p>
+      </div>
+      <div class="pj-grid">
+        <figure class="pj-slide pj-wide" style="--i:0"><button type="button" class="pj-open" data-i="0" data-label="Cover" aria-label="Look closer at slide 1 of 6, Cover"><img src="olympic-01.webp" alt="Cover slide, The Power of Social Media for Olympic Athletes, with a sprinter" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide" style="--i:1"><button type="button" class="pj-open" data-i="1" data-label="Amplifying your story" aria-label="Look closer at slide 2 of 6, Amplifying your story"><img src="olympic-02.webp" alt="Amplifying Your Story: personal branding, authentic connection and global reach" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide" style="--i:2"><button type="button" class="pj-open" data-i="2" data-label="Influence and opportunities" aria-label="Look closer at slide 3 of 6, Influence and opportunities"><img src="olympic-03.webp" alt="Building Influence and Opportunities: sponsorship, revenue streams and career development" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide" style="--i:3"><button type="button" class="pj-open" data-i="3" data-label="Fans and supporters" aria-label="Look closer at slide 4 of 6, Fans and supporters"><img src="olympic-04.webp" alt="Engaging with Fans and Supporters" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide" style="--i:4"><button type="button" class="pj-open" data-i="4" data-label="Maximizing opportunities" aria-label="Look closer at slide 5 of 6, Maximizing opportunities"><img src="olympic-05.webp" alt="Maximizing Opportunities: call to action, conclusion and strategy development" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
+        <figure class="pj-slide pj-wide" style="--i:5"><button type="button" class="pj-open" data-i="5" data-label="Thank you" aria-label="Look closer at slide 6 of 6, Thank you"><img src="olympic-06.webp" alt="Thank you slide" width="1920" height="1080" loading="lazy" decoding="async"></button></figure>
       </div>
     </div>
   </div>
@@ -1072,7 +1156,79 @@
   </div>
 </section>
 
-<!-- the page viewer, shared by the deck, Trendcast and Tarri Baj -->
+<section class="page" id="freshproj" aria-label="Fresh Farm UI UX" aria-hidden="true">
+  <div class="page-in">
+    <div class="p-panel">
+      <button type="button" class="pj-back" data-pj-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to work</button>
+      <div class="ff-hero">
+        <div class="p-head">
+          <p class="p-kicker">UI UX · Case study</p>
+          <h2 class="p-title">Fresh Farm</h2>
+          <p class="p-lede">A mobile app for farmers and buyers: sell produce, keep track of crops, check market rates, order fertilizers and talk to other farmers. Every screen is below, in the order you meet it. Click one to look closer.</p>
+          <dl class="ff-facts">
+            <div><dt>Type</dt><dd>UI UX case study</dd></div>
+            <div><dt>Platform</dt><dd>Mobile app</dd></div>
+            <div><dt>Screens</dt><dd>20</dd></div>
+          </dl>
+        </div>
+        <figure class="pj-slide ff-cover" style="--i:0"><div class="ff-frame"><img src="freshfarm-cover.webp" alt="Fresh Farm UI/UX case study cover: the logo, and the app's welcome screen on a phone" width="1440" height="1024" decoding="async"></div></figure>
+      </div>
+      <section class="ff-sec" aria-label="Getting started">
+        <h3 class="ff-h"><span>01</span>Getting started</h3>
+        <div class="ff-grid">
+          <figure class="pj-slide ff-slide" style="--i:0"><button type="button" class="pj-open" data-label="Welcome" aria-label="Look closer at screen 1 of 20, Welcome"><img src="freshfarm-01.webp" alt="Welcome screen: the Fresh Farm logo over a green field, with Farmer and Buyer buttons" width="540" height="1200" decoding="async"></button><figcaption class="ff-cap"><b>01</b>Welcome</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:1"><button type="button" class="pj-open" data-label="Log in" aria-label="Look closer at screen 2 of 20, Log in"><img src="freshfarm-02.webp" alt="Log in screen with mobile number and password fields" width="540" height="1200" decoding="async"></button><figcaption class="ff-cap"><b>02</b>Log in</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:2"><button type="button" class="pj-open" data-label="Phone check" aria-label="Look closer at screen 3 of 20, Phone check"><img src="freshfarm-03.webp" alt="OTP verification screen with four code boxes" width="540" height="1200" decoding="async"></button><figcaption class="ff-cap"><b>03</b>Phone check</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:3"><button type="button" class="pj-open" data-label="Verified" aria-label="Look closer at screen 4 of 20, Verified"><img src="freshfarm-04.webp" alt="Verification successful pop-up with a Home button" width="540" height="1200" decoding="async"></button><figcaption class="ff-cap"><b>04</b>Verified</figcaption></figure>
+        </div>
+      </section>
+      <section class="ff-sec" aria-label="Home &amp; shop">
+        <h3 class="ff-h"><span>02</span>Home &amp; shop</h3>
+        <div class="ff-grid">
+          <figure class="pj-slide ff-slide" style="--i:0"><button type="button" class="pj-open" data-label="Home" aria-label="Look closer at screen 5 of 20, Home"><img src="freshfarm-05.webp" alt="Home screen with the weather, shortcuts to fertilizers, market and organic farming, and an add-product card" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>05</b>Home</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:1"><button type="button" class="pj-open" data-label="Fertilizers" aria-label="Look closer at screen 6 of 20, Fertilizers"><img src="freshfarm-06.webp" alt="Fertilizer list with product cards, prices and Buy buttons" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>06</b>Fertilizers</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:2"><button type="button" class="pj-open" data-label="Product page" aria-label="Look closer at screen 7 of 20, Product page"><img src="freshfarm-07.webp" alt="Compost product page with the description, price and a Buy button" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>07</b>Product page</figcaption></figure>
+        </div>
+      </section>
+      <section class="ff-sec" aria-label="Market rates">
+        <h3 class="ff-h"><span>03</span>Market rates</h3>
+        <div class="ff-grid">
+          <figure class="pj-slide ff-slide" style="--i:0"><button type="button" class="pj-open" data-label="Market rates" aria-label="Look closer at screen 8 of 20, Market rates"><img src="freshfarm-08.webp" alt="Market rates list with search, location and category filters" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>08</b>Market rates</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:1"><button type="button" class="pj-open" data-label="Rate chart" aria-label="Look closer at screen 9 of 20, Rate chart"><img src="freshfarm-09.webp" alt="Grapes page with today's rate and a price chart for March" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>09</b>Rate chart</figcaption></figure>
+        </div>
+      </section>
+      <section class="ff-sec" aria-label="My farm">
+        <h3 class="ff-h"><span>04</span>My farm</h3>
+        <div class="ff-grid">
+          <figure class="pj-slide ff-slide" style="--i:0"><button type="button" class="pj-open" data-label="My crops" aria-label="Look closer at screen 10 of 20, My crops"><img src="freshfarm-10.webp" alt="My Farm screen for the cabbage crop, with its activities and farm details" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>10</b>My crops</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:1"><button type="button" class="pj-open" data-label="Planting guide" aria-label="Look closer at screen 11 of 20, Planting guide"><img src="freshfarm-11.webp" alt="Planting pop-up explaining spring and fall planting" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>11</b>Planting guide</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:2"><button type="button" class="pj-open" data-label="Crop notes" aria-label="Look closer at screen 12 of 20, Crop notes"><img src="freshfarm-12.webp" alt="My Farm page for grapes with the variety, nutritional value and health benefits" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>12</b>Crop notes</figcaption></figure>
+        </div>
+      </section>
+      <section class="ff-sec" aria-label="Selling">
+        <h3 class="ff-h"><span>05</span>Selling</h3>
+        <div class="ff-grid">
+          <figure class="pj-slide ff-slide" style="--i:0"><button type="button" class="pj-open" data-label="Add product" aria-label="Look closer at screen 13 of 20, Add product"><img src="freshfarm-13.webp" alt="Add Product form with three photos, product, days and a no-chemicals certificate" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>13</b>Add product</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:1"><button type="button" class="pj-open" data-label="Photo options" aria-label="Look closer at screen 14 of 20, Photo options"><img src="freshfarm-14.webp" alt="Take Photo or Upload File sheet over the home screen" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>14</b>Photo options</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:2"><button type="button" class="pj-open" data-label="Upload photos" aria-label="Look closer at screen 15 of 20, Upload photos"><img src="freshfarm-15.webp" alt="Upload two more photos screen with a grape photo and a camera button" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>15</b>Upload photos</figcaption></figure>
+        </div>
+      </section>
+      <section class="ff-sec" aria-label="Community, orders &amp; profile">
+        <h3 class="ff-h"><span>06</span>Community, orders &amp; profile</h3>
+        <div class="ff-grid">
+          <figure class="pj-slide ff-slide" style="--i:0"><button type="button" class="pj-open" data-label="Community" aria-label="Look closer at screen 16 of 20, Community"><img src="freshfarm-16.webp" alt="Community screen with farmers in a field and a list of what the community offers" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>16</b>Community</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:1"><button type="button" class="pj-open" data-label="Orders" aria-label="Look closer at screen 17 of 20, Orders"><img src="freshfarm-17.webp" alt="Your Orders screen with Pending, Accepted and Completed tabs" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>17</b>Orders</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:2"><button type="button" class="pj-open" data-label="Order detail" aria-label="Look closer at screen 18 of 20, Order detail"><img src="freshfarm-18.webp" alt="Order detail with the items, weights and prices" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>18</b>Order detail</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:3"><button type="button" class="pj-open" data-label="Notifications" aria-label="Look closer at screen 19 of 20, Notifications"><img src="freshfarm-19.webp" alt="Notification list: market rates, an offer, weather and a password reset" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>19</b>Notifications</figcaption></figure>
+          <figure class="pj-slide ff-slide" style="--i:4"><button type="button" class="pj-open" data-label="Profile" aria-label="Look closer at screen 20 of 20, Profile"><img src="freshfarm-20.webp" alt="Profile screen with the photo, name, location and the account menu" width="540" height="1200" loading="lazy" decoding="async"></button><figcaption class="ff-cap"><b>20</b>Profile</figcaption></figure>
+        </div>
+      </section>
+      <p class="ff-end"><a class="btn line" href="https://www.behance.net/gallery/195480711/Fresh-Farm-UI-UX-Design-%28Case-Study%29" target="_blank" rel="noopener noreferrer">View the case study on Behance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a></p>
+    </div>
+  </div>
+</section>
+
+<!-- the page viewer, shared by the deck, Trendcast, Tarri Baj and Fresh Farm -->
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Page viewer" aria-hidden="true">
   <button type="button" class="lb-x" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <button type="button" class="lb-nav lb-prev" aria-label="Previous page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -1366,12 +1522,9 @@
     var projEl = null, lbEl = document.getElementById("lb"), lbImg = document.getElementById("lbImg"), lbCap = document.getElementById("lbCap"), lbFig = lbEl.querySelector(".lb-fig");
     var projOpener = null, lbOpener = null, lbI = 0, lbItems = [];
     function pad2(n) { return (n < 10 ? "0" : "") + n; }
-    function openProject(from) { /* data-project="deck" opens #deckproj, "trend" opens #trendproj, "tarribaj" opens #tarribajproj */
-      var key = typeof from === "string" ? from : (from && from.getAttribute ? from.getAttribute("data-project") : null);
-      if (!key) key = "deck";
-      if (key.indexOf("proj") === key.length - 4) key = key.slice(0, -4);
-      var el = document.getElementById(key + "proj"); if (!el) return;
-      projOpener = (typeof from === "object" ? from : w3Open) || null; projEl = el;
+    function openProject(from) { /* data-project="deck" opens #deckproj, "trend" opens #trendproj, "tarribaj" opens #tarribajproj, "fresh" opens #freshproj, "ngo" opens #ngoproj, "olymp" opens #olympproj */
+      var el = document.getElementById(((from && from.getAttribute("data-project")) || "deck") + "proj"); if (!el) return;
+      projOpener = from || null; projEl = el;
       el.classList.add("open"); el.setAttribute("aria-hidden", "false"); el.scrollTop = 0; pageEl.inert = true;
       var back = el.querySelector(".pj-back"); if (back) back.focus({ preventScroll: true });
     }
@@ -1397,7 +1550,7 @@
     }
     Array.prototype.forEach.call(document.querySelectorAll("[data-project]"), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); openProject(a); }); });
     Array.prototype.forEach.call(document.querySelectorAll(".page [data-pj-close]"), function (b) { b.addEventListener("click", closeProject); });
-    Array.prototype.forEach.call(document.querySelectorAll("#deckproj, #trendproj, #tarribajproj"), function (sec) {
+    Array.prototype.forEach.call(document.querySelectorAll("#deckproj, #ngoproj, #olympproj, #trendproj, #tarribajproj, #freshproj"), function (sec) {
       var items = Array.prototype.slice.call(sec.querySelectorAll(".pj-open, .tp-open"));
       items.forEach(function (b, i) { b.addEventListener("click", function () { openLightbox(items, i, b); }); });
     });
@@ -1462,8 +1615,9 @@
       {"t": "Trendcast", "c": "UI UX · Website", "f": "uiux", "pj": "trend", "img": "trendcast.webp", "bg": "#ffffff"},
       {"t": "Tarri Baj", "c": "Brand · Identity", "f": "brand", "pj": "tarribaj", "img": "tarribaj-01.webp", "fit": "contain", "bg": "#211a18"},
       {"t": "Lorem Ipsum Dolor", "c": "Presentation & Deck Design", "f": "deck", "pj": "deck", "img": "deck-01.webp", "fit": "contain", "bg": "#0b0908"},
-      {"t": "Zomato Order Tracking Redesign", "c": "UI UX · Redesign", "f": "uiux", "href": "https://www.behance.net/gallery/217341391/Zomato-Order-tracking-page-redesign", "img": "https://mir-s3-cdn-cf.behance.net/projects/808/bba151217341391.Y3JvcCwxOTIwLDE1MDEsMCwxMDY5.jpg", "fb": "https://mir-s3-cdn-cf.behance.net/projects/404/bba151217341391.Y3JvcCwxOTIwLDE1MDEsMCwxMDY5.jpg", "ph": true},
-      {"t": "Fresh Farm UI UX", "c": "UI UX · Case study", "f": "uiux", "href": "https://www.behance.net/gallery/195480711/Fresh-Farm-UI-UX-Design-%28Case-Study%29", "img": "freshfarm-cover.webp", "bg": "#232323"},
+      {"t": "Animal NGO Structure", "c": "Presentation & Deck Design", "f": "deck", "pj": "ngo", "img": "animalngo-01.webp", "fit": "contain", "bg": "#0b0908"},
+      {"t": "The Power of Social Media for Olympic Athletes", "c": "Presentation & Deck Design", "f": "deck", "pj": "olymp", "img": "olympic-01.webp", "fit": "contain", "bg": "#0b0908"},
+      {"t": "Fresh Farm UI UX", "c": "UI UX · Case study", "f": "uiux", "pj": "fresh", "img": "freshfarm-cover.webp", "bg": "#232323"},
       {"t": "Bellucious Restaurant Branding", "c": "Brand · Restaurant", "f": "brand", "href": "https://www.behance.net/gallery/191563855/Bellucious-Restaurant-Branding", "img": "https://mir-s3-cdn-cf.behance.net/projects/808/0fc5ec191563855.Y3JvcCw3NzUsNjA2LDU3MSwxOTc.jpg", "fb": "https://mir-s3-cdn-cf.behance.net/projects/404/0fc5ec191563855.Y3JvcCw3NzUsNjA2LDU3MSwxOTc.jpg", "ph": true},
       {"t": "Kay Bee’s Brochure Design", "c": "Print · Brochure", "f": "print", "href": "https://www.behance.net/gallery/193809249/Kay-Bees-Brochure-Design", "img": "https://mir-s3-cdn-cf.behance.net/projects/808/20f72c193809249.Y3JvcCwyODc2LDIyNTAsNjQsMA.jpg", "fb": "https://mir-s3-cdn-cf.behance.net/projects/404/20f72c193809249.Y3JvcCwyODc2LDIyNTAsNjQsMA.jpg", "ph": true},
       {"t": "Touch AI Smart Watch App", "c": "UI UX · Watch app", "f": "uiux", "href": "https://www.behance.net/gallery/196872331/Touch-AI-Smart-watch-app", "img": "https://mir-s3-cdn-cf.behance.net/projects/808/e41927196872331.Y3JvcCwxMTQ2LDg5NiwxNCww.png", "fb": "https://mir-s3-cdn-cf.behance.net/projects/404/e41927196872331.Y3JvcCwxMTQ2LDg5NiwxNCww.png", "ph": true},
@@ -1494,7 +1648,7 @@
       var id = "w3k" + slot;
       var back = '<div class="w3d-l w3d-back"><div class="w3d-blur">' + w3Ph(p, n) + w3Img(p) + '</div><div class="w3d-shade"></div><div class="w3d-strip"></div><div class="w3d-info"><div class="w3d-no">' + esc(p.t) + '</div><div class="w3d-sub">' + esc(p.c) + "<b>•</b>" + pad2(n) + " / " + pad2(total) + "</div></div></div>";
       var mid = "", z = [-0.73, 0, 0.73], i;
-      for (i = 0; i < 3; i++) mid += '<div class="w3d-l w3d-mid" style="transform:translateZ(' + z[i] + 'px)"></div>';
+      for (i = 0; i < 3; i++) mid += '<div class="w3d-l w3d-mid" style="transform:translateZ(calc(' + z[i] + 'px * var(--k)))"></div>';
       var chip = '<svg class="w3d-chip" viewBox="0 0 60 60" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="' + CHIP_A + '" fill="url(#' + id + ')"/><path fill-rule="evenodd" clip-rule="evenodd" d="' + CHIP_B + '" fill="#B7B7B7"/><defs><linearGradient id="' + id + '" x1="30" y1="8" x2="30" y2="52" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset="1" stop-color="#999999"/></linearGradient></defs></svg>';
       var front = '<div class="w3d-l w3d-front"' + (p.bg ? ' style="background:' + p.bg + '"' : "") + ">" + w3Ph(p, n) + w3Img(p) + '<div class="w3d-ui">' + chip + '<svg class="w3d-logo" viewBox="0 0 446.5 94" aria-hidden="true"><use href="#sig"/></svg><div class="w3d-dots"><i></i><i></i></div></div></div>';
       return '<div class="w3d-card" data-slot="' + slot + '">' + back + mid + front + "</div>";
@@ -1502,7 +1656,7 @@
 
     /* the maths: positions, rotations and depth for every card, from the one progress number */
     function w3Layout() {
-      var M = w3.M, els = w3.els, H = w3.H, cardH = w3.ch, D = 1350, gap = 36 * w3.u, peek = -55, i;
+      var k = w3.k || 1, M = w3.M, els = w3.els, H = w3.H * k, cardH = w3.ch * k, D = 1350 * k, gap = 36 * w3.u * k, peek = -55 * k, i; /* every length here is in the k-times-larger scene */
       var ri = Math.round(w3.P), df = w3.P - ri;
       var va = ri + (df < 0 ? -1 : 1) * Math.pow(Math.abs(df) * 2, 4.2) / 2; /* a brief rest on each card at the front, then it moves on */
       var half = M / 2;
@@ -1517,14 +1671,14 @@
         var y = 0, z = 0, rot = 0, t, e;
         if (ao <= 1) { /* centre card to the first neighbour */
           t = ao; e = t * t * (3 - 2 * t);
-          y = sg * (e * (cardH + gap)); z = 400 + e * (220 - 400); rot = e * 132;
+          y = sg * (e * (cardH + gap)); z = k * (400 + e * (220 - 400)); rot = e * 132;
         } else if (ao <= 2) { /* neighbour to the card peeking past the screen edge (perspective-aware) */
           t = ao - 1; e = t * t * (3 - 2 * t);
-          var yS = cardH + gap, zE = -60, yE = (H / 2 - peek) / (D / (D - zE)) - cardH / 2;
-          y = sg * (yS + e * (yE - yS)); z = 220 + e * (zE - 220); rot = 132 + e * (175 - 132);
+          var yS = cardH + gap, zE = -60 * k, yE = (H / 2 - peek) / (D / (D - zE)) - cardH / 2;
+          y = sg * (yS + e * (yE - yS)); z = 220 * k + e * (zE - 220 * k); rot = 132 + e * (175 - 132);
         } else { /* peeking card to fully off screen */
           t = Math.min(ao - 2, 1); e = t * t * (3 - 2 * t);
-          var zS = -60, yE2 = (H / 2 - peek) / (D / (D - zS)) - cardH / 2, zE3 = -250, yE3 = (H / 2 + 100) / (D / (D - zE3)) + cardH / 2;
+          var zS = -60 * k, yE2 = (H / 2 - peek) / (D / (D - zS)) - cardH / 2, zE3 = -250 * k, yE3 = (H / 2 + 100 * k) / (D / (D - zE3)) + cardH / 2;
           y = sg * (yE2 + e * (yE3 - yE2)); z = zS + e * (zE3 - zS); rot = 175 + e * (195 - 175);
         }
         var cf = Math.max(0, 1 - ao); /* 1 at the centre, 0 at a neighbour: only the front card follows the cursor */
@@ -1565,14 +1719,13 @@
       if (j !== w3.cur) { w3.cur = j; w3Now(true); }
     }
     function w3Btn(p) { /* the Open button follows the front card: a project view opens on this site, the others open in a new tab */
-      if (!p) return;
       if (p.pj) {
         w3Open.setAttribute("href", "#" + p.pj); w3Open.setAttribute("data-project", p.pj); w3Open.setAttribute("role", "button"); w3Open.setAttribute("aria-haspopup", "dialog");
         w3Open.removeAttribute("target"); w3Open.removeAttribute("rel");
         w3OpenT.textContent = "Open project"; w3OpenI.innerHTML = ICO_GO; w3Open.setAttribute("aria-label", "Open project: " + p.t);
       } else {
-        var bh = p.href && p.href.indexOf("behance.net") > -1;
-        w3Open.setAttribute("href", p.href || "#"); w3Open.setAttribute("target", "_blank"); w3Open.setAttribute("rel", "noopener noreferrer");
+        var bh = p.href.indexOf("behance.net") > -1;
+        w3Open.setAttribute("href", p.href); w3Open.setAttribute("target", "_blank"); w3Open.setAttribute("rel", "noopener noreferrer");
         w3Open.removeAttribute("data-project"); w3Open.removeAttribute("role"); w3Open.removeAttribute("aria-haspopup");
         w3OpenT.textContent = bh ? "View on Behance" : "Visit the live site"; w3OpenI.innerHTML = ICO_OUT; w3Open.setAttribute("aria-label", (bh ? "View on Behance: " : "Visit the live site: ") + p.t + " (opens in a new tab)");
       }
@@ -1587,7 +1740,9 @@
       w3.W = W; w3.H = H;
       var cw = Math.round(Math.max(190, Math.min(W * 0.62, H * 0.4, 430)));
       w3.cw = cw; w3.ch = Math.round(cw / 1.5925); w3.u = cw / 336;
-      w3Ring.style.setProperty("--cw", cw + "px"); w3Ring.style.setProperty("--ch", w3.ch + "px"); w3Ring.style.setProperty("--u", w3.u.toFixed(4));
+      var k = w3.k = window.__w3k || (window.devicePixelRatio > 1.4 ? 3 : 2); /* the scene is built k times larger, then scaled back (see .w3d-ring), so the cards stay sharp */
+      w3Ring.style.setProperty("--cw", cw * k + "px"); w3Ring.style.setProperty("--ch", w3.ch * k + "px"); w3Ring.style.setProperty("--u", (w3.u * k).toFixed(4));
+      w3Ring.style.setProperty("--k", k); w3Ring.style.setProperty("--ki", (1 / k).toFixed(5));
       var r = w3Stage.getBoundingClientRect(); w3.sx = r.left + r.width / 2; w3.sy = r.top + r.height / 2;
       if (w3.ready) w3Layout();
     }
@@ -1612,20 +1767,7 @@
       if (!el) return;
       var s = +el.getAttribute("data-slot"), a = mod(Math.round(w3.P), w3.M), d = s - a;
       if (d > w3.M / 2) d -= w3.M; else if (d < -w3.M / 2) d += w3.M;
-      if (d === 0) {
-        var curIdx = w3.slots[mod(Math.round(w3.P), w3.M)];
-        var p = W3[w3.active[curIdx]];
-        if (p) {
-          if (p.pj) {
-            openProject(p.pj);
-          } else if (p.href) {
-            window.open(p.href, "_blank", "noopener,noreferrer");
-          }
-        }
-      } else {
-        w3Live("polite");
-        w3Go(Math.round(w3.P) + d);
-      }
+      if (d === 0) w3Open.click(); else { w3Live("polite"); w3Go(Math.round(w3.P) + d); }
     }
     function w3SetPlay(on) { w3.play = on; w3Play.setAttribute("data-play", on ? "1" : "0"); w3Play.setAttribute("aria-label", on ? "Pause the turning cards" : "Play the turning cards"); }
     function w3Init() {
@@ -1634,24 +1776,7 @@
       w3Prev.addEventListener("click", function () { w3Step(-1); });
       w3Next.addEventListener("click", function () { w3Step(1); });
       w3Play.addEventListener("click", function () { w3SetPlay(!w3.play); });
-      w3Open.addEventListener("click", function (e) {
-        var dp = w3Open.getAttribute("data-project");
-        if (dp) {
-          e.preventDefault();
-          openProject(w3Open);
-          return;
-        }
-        var href = w3Open.getAttribute("href");
-        if (!href || href === "#") {
-          e.preventDefault();
-          var curIdx = w3.slots[mod(Math.round(w3.P), w3.M)];
-          var p = W3[w3.active[curIdx]];
-          if (p) {
-            if (p.pj) openProject(p.pj);
-            else if (p.href) window.open(p.href, "_blank", "noopener,noreferrer");
-          }
-        }
-      });
+      w3Open.addEventListener("click", function (e) { if (w3Open.getAttribute("data-project")) { e.preventDefault(); openProject(w3Open); } });
       if (window.ResizeObserver) new ResizeObserver(w3Measure).observe(w3Stage); else window.addEventListener("resize", w3Measure);
       document.addEventListener("visibilitychange", w3Wake);
       /* the cursor: tilts the front card, and pauses the turning while it rests on it */
@@ -1800,7 +1925,7 @@
     var workBtn = document.querySelector("[data-work]");
     if (workBtn) workBtn.addEventListener("click", function (e) { e.preventDefault(); openWork(); });
     /* placeholder links ("#") do nothing until you add real addresses */
-    Array.prototype.forEach.call(document.querySelectorAll('a[href="#"]:not(#w3dOpen):not(#hf-wa):not(#hf-web)'), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); }); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#"]'), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); }); });
 
     /* ---- Hire me popup ----
        Both "Hire me" buttons open it. Sending posts the name, email, service and message to your Google Apps Script web app (FORM_ENDPOINT).
@@ -2024,7 +2149,7 @@
 (function () {
   "use strict";
   /* Button hover. The fill in the CSS grows from the point stored in --hx / --hy, so this only has to record where the cursor (or finger) met a button: where it came in, where it left, where it pressed. */
-  var SEL = ".btn, .hire, .w3d-nav, .w-chips button, .rs-x, .hf-x, .pj-back, .lb-nav, .lb-x", doc = document;
+  var SEL = ".btn, .hire, .w3d-nav, .w-chips button, .rs-x, .hf-x, .pj-back, .lb-nav, .lb-x, .search, .menu-btn, .rb, .hv, .c-sq, .p-foot a", doc = document;
   function find(e) { var t = e.target; return t && t.closest ? t.closest(SEL) : null; }
   function mark(el, e) {
     var r = el.getBoundingClientRect();
