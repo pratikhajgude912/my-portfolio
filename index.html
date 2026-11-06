@@ -550,6 +550,7 @@
   @media (prefers-reduced-motion: reduce) { #freshproj.open .pj-slide { animation: none; } }
   /* the page viewer, for a long page: the page scrolls inside it, top to bottom */
   .lb.tall { align-items: stretch; }
+  .lb.tall .lb-nav { align-self: center; }
   .lb.tall .lb-fig { align-self: stretch; justify-content: flex-start; gap: 0; max-height: calc(100svh - 36px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.35) transparent; }
   .lb.tall .lb-fig img { flex: none; width: min(100%, 1280px); max-height: none; height: auto; border-radius: 10px; background: #fff; }
   .lb.tall .lb-fig figcaption { order: -1; position: sticky; top: 0; z-index: 1; margin: 0 0 10px; padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(6, 4, 3, 0.86); white-space: pre; }
