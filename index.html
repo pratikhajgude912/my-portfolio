@@ -65,7 +65,9 @@
   }
   .stage .main { opacity: 0; transition: opacity 0.25s ease; }
   .stage.vid-ready .main { opacity: 1; }
-  .stage.vid-failed .main { opacity: 0; visibility: hidden; }
+  .stage .main-rev, .stage.vid-ready .main-rev { opacity: 0; pointer-events: none; transition: opacity 0.14s ease; }
+  .stage.rev-on .main-rev { opacity: 1; }
+  .stage.vid-failed .main, .stage.vid-failed .main-rev { opacity: 0; visibility: hidden; }
 
   /* header: a frosted dark-glass pill (layout from your mockup). Your signature logo on the left; Work, About, Experience, Contact and a search icon on the right. */
   .site-bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; padding-block: max(12px, calc(32 * var(--s))) 8px; }
@@ -144,26 +146,26 @@
   /* the designation is a small spiral-bound calendar card under the signature. The card is as wide as the signature (and as the longest title), so the titles can change without anything moving. The whole page flips about its top edge, where the rings are; the rings and the sheets underneath stay put (script at the end of the page). All seven pages share one grid cell, so the card is always as big as the biggest one. */
   .role { position: relative; height: calc(1.3 * max(13px, calc(17.5 * var(--s)))); min-width: calc(16.74 * max(13px, calc(17.5 * var(--s)))); } /* keeps the same height and width the old text line had, so the signature does not move */
   .cal {
-    --cw: max(190px, calc(288 * var(--s))); /* the signature's width */
-    --px: max(10px, calc(16 * var(--s))); /* padding left and right */
+    --cw: max(164px, calc(242 * var(--s))); /* slightly narrower than the signature above */
+    --px: max(9px, calc(13 * var(--s))); /* padding left and right */
     --cf: calc((var(--cw) - 2 * var(--px)) / 12.6); /* title size: the longest title fills the card */
     --paper: #fbf3df; --paper-2: #f4e8cd; --ink: #2b1710; --edge: rgba(122, 88, 46, 0.22);
-    position: absolute; left: 0; top: calc(9 * var(--s)); width: var(--cw);
+    position: absolute; left: 0; top: calc(7 * var(--s)); width: var(--cw);
     font-size: var(--cf); color: var(--ink); text-shadow: none; white-space: nowrap; letter-spacing: 0;
   }
   .cal-base { /* the sheets under the page: a plain sheet, two thinner ones below it, and the soft shadow */
-    position: absolute; inset: 0; border-radius: max(7px, calc(11 * var(--s))); background: linear-gradient(180deg, #fffaf0, var(--paper-2));
-    box-shadow: 0 1px 0 var(--edge), 0 3px 0 -1px #f3e8cf, 0 4px 0 -1px var(--edge), 0 6px 0 -2px #eee0c3, 0 7px 0 -2px var(--edge), 0 16px 24px -10px rgba(40, 10, 0, 0.6), 0 5px 12px rgba(40, 10, 0, 0.28);
+    position: absolute; inset: 0; border-radius: max(6px, calc(9 * var(--s))); background: linear-gradient(180deg, #fffaf0, var(--paper-2));
+    box-shadow: 0 1px 0 var(--edge), 0 3px 0 -1px #f3e8cf, 0 4px 0 -1px var(--edge), 0 6px 0 -2px #eee0c3, 0 7px 0 -2px var(--edge), 0 14px 20px -9px rgba(40, 10, 0, 0.58), 0 4px 10px rgba(40, 10, 0, 0.26);
   }
   .role-stack { position: relative; display: grid; perspective: max(300px, calc(440 * var(--s))); perspective-origin: 50% 50%; }
   .rt {
     grid-area: 1 / 1; visibility: hidden; transform-origin: 50% 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
     position: relative; display: flex; align-items: center; box-sizing: border-box; min-width: 0;
-    padding: max(14px, calc(21 * var(--s))) var(--px) max(12px, calc(17 * var(--s)));
-    border-radius: max(7px, calc(11 * var(--s))); background: linear-gradient(180deg, #fffaf0, var(--paper)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(122, 88, 46, 0.12);
+    padding: max(11px, calc(17 * var(--s))) var(--px) max(9px, calc(13 * var(--s)));
+    border-radius: max(6px, calc(9 * var(--s))); background: linear-gradient(180deg, #fffaf0, var(--paper)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(122, 88, 46, 0.12);
   }
   .rt-t { font-weight: 500; font-size: 1em; line-height: 1.15; letter-spacing: -0.005em; font-family: var(--font); }
-  .rt-n { position: absolute; right: max(8px, calc(11 * var(--s))); bottom: max(5px, calc(6 * var(--s))); font-size: max(8px, calc(9.5 * var(--s))); line-height: 1; letter-spacing: 0.08em; font-weight: 500; font-variant-numeric: tabular-nums; color: rgba(43, 23, 16, 0.42); }
+  .rt-n { position: absolute; right: max(7px, calc(9 * var(--s))); bottom: max(4px, calc(5 * var(--s))); font-size: max(7px, calc(8.5 * var(--s))); line-height: 1; letter-spacing: 0.08em; font-weight: 500; font-variant-numeric: tabular-nums; color: rgba(43, 23, 16, 0.42); }
   .rt.is-on, .rt.out, .rt.in { visibility: visible; }
   .rt.out { animation: rtOut 0.3s cubic-bezier(0.5, 0, 0.9, 0.55) both; will-change: transform, opacity; }
   .rt.in { animation: rtIn 0.46s linear both; will-change: transform, opacity; }
@@ -178,10 +180,10 @@
   @keyframes rtFadeIn { from { opacity: 0; } to { opacity: 1; } }
   @media (prefers-reduced-motion: reduce) { .rt.out { animation: rtFadeOut 0.25s linear both; } .rt.in { animation: rtFadeIn 0.25s linear both; } }
   /* the metal spiral: nine rings along the top edge. They never move. */
-  .cal-rings { position: absolute; left: 0; right: 0; top: 0; z-index: 3; display: flex; justify-content: space-between; padding: 0 max(14px, calc(22 * var(--s))); pointer-events: none; }
-  .cal-ring { position: relative; isolation: isolate; display: block; width: max(6px, calc(8 * var(--s))); height: max(15px, calc(21 * var(--s))); margin-top: calc(max(15px, calc(21 * var(--s))) / -2.5); }
+  .cal-rings { position: absolute; left: 0; right: 0; top: 0; z-index: 3; display: flex; justify-content: space-between; padding: 0 max(11px, calc(17 * var(--s))); pointer-events: none; }
+  .cal-ring { position: relative; isolation: isolate; display: block; width: max(5px, calc(7 * var(--s))); height: max(13px, calc(18 * var(--s))); margin-top: calc(max(13px, calc(18 * var(--s))) / -2.5); }
   .cal-ring::before { /* the wire: a hollow loop of brushed metal */
-    content: ""; position: absolute; inset: 0; border-radius: 999px; padding: max(1.4px, calc(1.9 * var(--s)));
+    content: ""; position: absolute; inset: 0; border-radius: 999px; padding: max(1.2px, calc(1.6 * var(--s)));
     background: linear-gradient(90deg, #3e434a 0%, #c3c8ce 22%, #ffffff 40%, #959ba3 64%, #343940 100%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
     filter: drop-shadow(0 1.5px 1.2px rgba(30, 10, 0, 0.5));
@@ -235,6 +237,36 @@
   .a-title { margin: 0; font-family: var(--display); font-weight: 400; font-synthesis: none; font-size: max(2rem, calc(54 * var(--s))); line-height: 1.04; letter-spacing: -0.01em; word-spacing: -0.08em; text-wrap: balance; }
   .a-body { margin-top: calc(24 * var(--s)); }
   .a-body p { margin: 0 0 1.05em; max-width: 36em; font-weight: 300; font-size: max(15px, calc(17 * var(--s))); line-height: 1.62; color: rgba(255, 255, 255, 0.92); }
+  .a-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: max(10px, calc(14 * var(--s))); margin-top: calc(22 * var(--s)); text-shadow: none; }
+  .a-stat {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    padding: max(16px, calc(20 * var(--s))) max(10px, calc(14 * var(--s)));
+    border-radius: max(12px, calc(16 * var(--s)));
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)), rgba(18, 6, 4, 0.58);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(10, 2, 1, 0.28);
+    transition: border-color 0.25s, background 0.25s, transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .a-stat:hover { border-color: rgba(255, 217, 133, 0.45); background: linear-gradient(180deg, rgba(226, 74, 26, 0.14), rgba(255, 255, 255, 0.03)), rgba(18, 6, 4, 0.68); transform: translateY(-2px); }
+  @media (prefers-reduced-motion: reduce) { .a-stat { transition: border-color 0.25s, background 0.25s; } .a-stat:hover { transform: none; } .a-fx-i { display: none; } }
+  .a-stat-n { font-family: var(--font); font-weight: 700; font-variant-numeric: tabular-nums; font-size: max(1.45rem, calc(30 * var(--s))); line-height: 1.08; letter-spacing: -0.02em; color: var(--amber-soft); }
+  .a-stat-l { margin-top: max(5px, calc(7 * var(--s))); font-family: var(--font); font-weight: 400; font-size: max(11.5px, calc(13.5 * var(--s))); line-height: 1.3; color: rgba(255, 255, 255, 0.8); text-wrap: balance; }
+  .a-fx { position: absolute; inset: 0; pointer-events: none; overflow: visible; z-index: 2; }
+  .a-fx-i {
+    position: absolute; left: 50%; bottom: 48%; width: var(--sz, 20px); height: var(--sz, 20px); opacity: 0; pointer-events: none;
+    color: rgba(255, 255, 255, 0.78);
+    will-change: transform, opacity; filter: drop-shadow(0 2px 8px rgba(10, 2, 1, 0.35));
+    animation: fx-up var(--dur, 1.85s) linear var(--dl, 0s) forwards;
+  }
+  .a-fx-i svg { display: block; width: 100%; height: 100%; }
+  @keyframes fx-up {
+    0% { opacity: 0; transform: translate3d(calc(-50% + var(--sx, 0px)), 16px, 0) scale(0.76) rotate(0deg); }
+    20% { opacity: 0.85; transform: translate3d(calc(-50% + var(--mx, 0px)), -8px, 0) scale(0.94) rotate(var(--r1, 0deg)); }
+    55% { opacity: 0.82; transform: translate3d(calc(-50% + var(--sx, 0px)), -50px, 0) scale(1) rotate(var(--r2, 0deg)); }
+    82% { opacity: 0.44; transform: translate3d(calc(-50% + var(--ex, 0px)), -82px, 0) scale(0.97) rotate(var(--r1, 0deg)); }
+    100% { opacity: 0; transform: translate3d(calc(-50% + var(--ex, 0px)), var(--dy, -104px), 0) scale(0.94) rotate(var(--r2, 0deg)); }
+  }
   .a-close { margin: calc(26 * var(--s)) 0 0; padding-top: calc(22 * var(--s)); border-top: 1px solid rgba(255, 255, 255, 0.3); font-family: var(--display); font-weight: 400; font-synthesis: none; font-size: max(14px, calc(23.5 * var(--s))); line-height: 1.3; word-spacing: -0.08em; white-space: nowrap; color: var(--amber-soft); } /* the three phrases sit on one line */
 
   /* experience: a dark sheet that slides up over the video after About. The person scrolls away with it, the name fades out, and the right-hand links stay frozen on top (script: band) */
@@ -271,7 +303,7 @@
   @media (prefers-reduced-motion: reduce) { .b-track { animation: none; flex-wrap: wrap; width: auto; } .b-set { flex: 0 1 auto; max-width: 100%; flex-wrap: wrap; row-gap: 12px; } .b-set[aria-hidden] { display: none; } .b-row { -webkit-mask-image: none; mask-image: none; } .b-logo { gap: 0; padding-right: max(28px, calc(44 * var(--s))); } .b-logo::after { display: none; } } /* no movement: the logos sit still and wrap onto as many lines as they need */
   .exp-head { position: sticky; top: var(--xtop); } /* frozen 150px below the header while the cards scroll up on the right */
   .exp-head .a-title { max-width: 9em; }
-  .exp .a-kick { color: var(--orange); } /* the Experience eyebrow uses the same orange as the header tabs; the company names use the same soft yellow as the About me label */
+  .exp .a-kick { color: var(--amber-soft); } /* matches the About me eyebrow and company names */
   .exp-head .x-lede { margin: calc(24 * var(--s)) 0 0; max-width: 24em; text-wrap: pretty; font-weight: 300; font-size: max(15px, calc(17 * var(--s))); line-height: 1.62; color: rgba(255, 255, 255, 0.72); }
   .x-list { display: grid; gap: max(14px, calc(20 * var(--s))); margin-top: calc(48 * var(--s)); /* the first card sits level with the title, just under the Experience word */ padding-bottom: calc(0.4 * max(0px, calc(100svh - 20px - 96 * var(--s) - var(--xtop) - 253 * var(--s)))); } /* a little scroll room after the last role; the Contact sheet follows, so no more is needed */
   .x-item {
@@ -693,13 +725,13 @@
     .name { position: fixed; z-index: 2; left: auto; bottom: auto; right: 14px; top: calc(var(--stage-h) - 78px); width: clamp(92px, 28vw, 120px); margin: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
     .name .sig { width: 100%; min-width: 0; }
     .role { margin-top: 5px; max-width: none; white-space: normal; text-wrap: balance; text-align: left; font-size: clamp(10px, 3vw, 12px); line-height: 1.25; }
-    .role { height: auto; min-width: 0; align-self: stretch; margin-top: 9px; }
-    .cal { --px: 8px; --cf: calc((clamp(92px, 28vw, 120px) - 2 * var(--px)) / 8.1); /* the longest line ('Motion Graphics') just fits the card */ position: relative; top: 0; width: 100%; white-space: normal; text-wrap: balance; }
-    .rt { padding: 15px var(--px) 11px; border-radius: 8px; }
-    .cal-base { border-radius: 8px; }
-    .rt-n { font-size: 7.5px; right: 7px; bottom: 4px; }
-    .cal-rings { padding: 0 12px; }
-    .cal-ring { width: 6px; height: 15px; margin-top: -6px; }
+    .role { height: auto; min-width: 0; align-self: stretch; margin-top: 7px; }
+    .cal { --px: 7px; --cwm: clamp(82px, 24.5vw, 104px); --cf: calc((var(--cwm) - 2 * var(--px)) / 8.2); /* the longest line ('Motion Graphics') just fits the card */ position: relative; top: 0; width: var(--cwm); white-space: normal; text-wrap: balance; }
+    .rt { padding: 12px var(--px) 9px; border-radius: 7px; }
+    .cal-base { border-radius: 7px; }
+    .rt-n { font-size: 6.8px; right: 6px; bottom: 3.5px; }
+    .cal-rings { padding: 0 10px; }
+    .cal-ring { width: 5px; height: 13px; margin-top: -5px; }
     .cal-ring:nth-child(2n) { display: none; }
     .rail { display: none; }
     body.band-gone .site-bar { background: var(--bg); }
@@ -716,6 +748,10 @@
     .about-in { width: auto; max-width: 34em; }
     .a-title { font-size: clamp(2rem, 9.5vw, 3rem); word-spacing: -0.15em; }
     .a-body p { font-size: 16px; }
+    .a-stats { gap: 8px; margin-top: 20px; }
+    .a-stat { padding: 14px 8px; border-radius: 12px; }
+    .a-stat-n { font-size: clamp(1.25rem, 5.5vw, 1.6rem); }
+    .a-stat-l { margin-top: 5px; font-size: 12px; }
     .a-close { font-size: clamp(1.2rem, 5.4vw, 1.5rem); white-space: normal; text-wrap: balance; margin-top: 26px; padding-top: 20px; } /* too long for one line on a phone, so it wraps in balance */
     .exp { min-height: 0; padding: 56px 20px 56px 20px; }
     .brands { position: static; margin: calc(-32px + (var(--bh) - var(--bh2)) / 2) 0 calc(28px + (var(--bh) - var(--bh2)) / 2); }
@@ -836,7 +872,7 @@
   /* the big faded "Get in touch" behind the top of the section: it fades out downwards and sits under everything else */
   .c-ghost { position: absolute; z-index: -1; left: 0; right: max(64px, calc(120 * var(--s))); top: calc(var(--hdr, 116px) - 36 * var(--s)); margin: 0; text-align: center; white-space: nowrap; font-family: var(--font); font-weight: 700; font-size: calc(210 * var(--s)); line-height: 1; letter-spacing: -0.035em; color: rgba(255, 255, 255, 0.1); -webkit-mask-image: linear-gradient(180deg, #000 18%, transparent 80%); mask-image: linear-gradient(180deg, #000 18%, transparent 80%); pointer-events: none; user-select: none; -webkit-user-select: none; }
   .contact-in { flex: none; display: grid; grid-template-columns: minmax(0, 4.6fr) minmax(0, 6.4fr); gap: 0 calc(72 * var(--s)); align-items: start; }
-  .c-head .a-kick { color: var(--orange); }
+  .c-head .a-kick { color: var(--amber-soft); }
   .c-head .a-title { max-width: 9em; }
   .c-lede { margin: calc(20 * var(--s)) 0 0; max-width: 24em; font-weight: 300; font-size: max(15px, calc(17 * var(--s))); line-height: 1.62; color: rgba(255, 255, 255, 0.72); }
   .c-points { list-style: none; margin: calc(24 * var(--s)) 0 0; padding: 0; display: grid; gap: max(10px, calc(12 * var(--s))); }
@@ -974,6 +1010,9 @@
     <source src="bg.mp4" type="video/mp4">
     <source src="bg.webm" type="video/webm">
   </video>
+  <video id="bgRev" class="main main-rev" muted playsinline preload="none" tabindex="-1" disablepictureinpicture>
+    <source src="bg-rev.mp4" type="video/mp4">
+  </video>
 </div>
 
 <div class="wrap">
@@ -1026,7 +1065,24 @@
           <p class="rv" style="--d:.2s">With 8 years of design experience, I create intuitive, user-focused digital experiences that balance functionality with visual appeal. I also combine creative thinking with AI-powered workflows to develop compelling visuals, explore fresh concepts, and create engaging design solutions.</p>
           <p class="rv" style="--d:.26s">I believe technology can expand creativity, but it’s the thinking behind the design that makes it meaningful. My approach is simple: challenge the obvious, explore the unexpected, and turn ideas into work that connects with people.</p>
         </div>
-        <p class="a-close rv" style="--d:.32s"><span>Different thinking.</span> <span>Smarter creation.</span> <span>Meaningful impact.</span></p>
+        <div class="a-stats rv" style="--d:.32s" aria-label="Career highlights">
+          <div class="a-stat" data-fx="tools">
+            <span class="a-stat-n">8+</span>
+            <span class="a-stat-l">Years of Experience</span>
+            <span class="a-fx" aria-hidden="true"></span>
+          </div>
+          <div class="a-stat" data-fx="arrows">
+            <span class="a-stat-n">1200+</span>
+            <span class="a-stat-l">Projects Delivered</span>
+            <span class="a-fx" aria-hidden="true"></span>
+          </div>
+          <div class="a-stat" data-fx="smiles">
+            <span class="a-stat-n">250+</span>
+            <span class="a-stat-l">Happy Clients</span>
+            <span class="a-fx" aria-hidden="true"></span>
+          </div>
+        </div>
+        <p class="a-close rv" style="--d:.38s"><span>Different thinking.</span> <span>Smarter creation.</span> <span>Meaningful impact.</span></p>
       </div>
     </section>
 
@@ -1042,7 +1098,7 @@
       </div>
       <div class="exp-in">
         <div class="exp-head">
-          <p class="a-kick rv" style="--d:0s">Experience</p>
+          <p class="a-kick rv" style="--d:0s">Work Experience</p>
           <h2 class="a-title rv" style="--d:.08s" id="exp-h">Where the thinking turned into work.</h2>
           <p class="x-lede rv" style="--d:.14s">A look at the roles and teams that shaped the way I design. From data visualization, reports and infographics to presentations and <span style="white-space:nowrap">UI / UX</span>, I've worked closely with researchers, analysts and marketing teams to turn complex information into clear, engaging visuals. Today, <span style="white-space:nowrap">AI-powered</span> tools are part of that workflow too, helping me move faster while the quality and creative direction stay mine.</p>
         </div>
@@ -1618,7 +1674,7 @@
     window.addEventListener("resize", function () { if (window.innerWidth > 900) setMenu(false); });
 
     /* ---- the video background and the Work page ---- */
-    var vid = document.getElementById("bg"), fill = document.querySelector(".stage .fill"), poster = document.getElementById("bgPoster"), stage = document.querySelector(".stage");
+    var vid = document.getElementById("bg"), vidRev = document.getElementById("bgRev"), fill = document.querySelector(".stage .fill"), poster = document.getElementById("bgPoster"), stage = document.querySelector(".stage");
     var pageEl = document.getElementById("workpage"), bodyEl = document.body;
     var CW = 2280, CH = 1080, AR = CW / CH, PCXF = 0.5237, T_START = 1.0, T_IDLE = 3.0, T_END = 9.0; /* the video canvas (px), where the person stands across it, the scroll-scrub range (seconds 1 to 3), and the second where the tablet fills the view (seconds) */
     var QUAD = [[629, 372], [1183, 285], [1428, 815], [860, 981]]; /* the tablet's screen corners in the canvas at that second (px, clockwise from top-left) */
@@ -1627,8 +1683,24 @@
     var G0 = { S: 1, L: 0, T: 0 }, G1 = { S: 1, L: 0, T: 0 };
     var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var phone = window.matchMedia ? matchMedia("(max-width: 900px)") : { matches: false };
-    var vidWarmed = false, vidReady = false, vidFailed = false, vidPriming = false;
+    var vidWarmed = false, vidReady = false, vidFailed = false, vidPriming = false, vidRevWarmed = false, vidRevFailed = false;
     if (vid) { vid.muted = true; vid.defaultMuted = true; vid.playsInline = true; }
+    if (vidRev) {
+      vidRev.muted = true; vidRev.defaultMuted = true; vidRev.playsInline = true;
+      vidRev.addEventListener("loadedmetadata", function () {
+        if (vidRevPlay && vidRevPlay.active && !vidRevPlay.synced && vidRev.duration) {
+          var uTarget = Math.max(0, vidRev.duration - tNow);
+          if (Math.abs(vidRev.currentTime - uTarget) > 0.08) vidRev.currentTime = uTarget;
+          vidRevPlay.synced = true;
+        }
+        kick();
+      });
+      vidRev.addEventListener("canplay", function () {
+        if (vidRevPlay && vidRevPlay.active && !vidRev.seeking && vidRev.readyState >= 2 && vidRev.videoWidth > 0) stage.classList.add("rev-on");
+        kick();
+      });
+      vidRev.addEventListener("error", function () { vidRevFailed = true; stage.classList.remove("rev-on"); }, true);
+    }
 
     function ease(x) { return 0.5 - 0.5 * Math.cos(Math.PI * x); } /* gentle in and out, so every moment of the video is seen */
     function smooth(x) { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); }
@@ -1640,6 +1712,11 @@
       L0 = W0 >= vw ? Math.min(0, Math.max(vw - W0, L0)) : Math.min(vw - W0, Math.max(0, L0));
       G0 = { S: S0, L: L0, T: 0 };
       G1 = intoScreen(vw, vh);
+      var bw = (G0.S * AR).toFixed(1) + "px", bh = G0.S.toFixed(1) + "px";
+      [poster, vid, vidRev].forEach(function (el) {
+        if (!el) return;
+        el.style.width = bw; el.style.height = bh; el.style.transformOrigin = "0 0";
+      });
       render();
     }
     /* work: the camera goes all the way into the tablet's screen. Find the smallest zoom (and where to point it) at which the whole view sits inside the screen's four corners, so no edge of the tablet is left in sight. */
@@ -1678,21 +1755,65 @@
       return { S: S, L: L, T: G0.T + (G1.T - G0.T) * q, q: q };
     }
     function render() {
-      var g = geo(tNow), w = (g.S * AR) + "px", h = g.S + "px", tr = "translate(" + g.L.toFixed(1) + "px," + g.T.toFixed(1) + "px)";
-      [poster, vid].forEach(function (el) {
+      var g = geo(tNow), sc = G0.S ? g.S / G0.S : 1;
+      var tr = "translate3d(" + g.L.toFixed(2) + "px," + g.T.toFixed(2) + "px,0) scale(" + sc.toFixed(5) + ")";
+      [poster, vid, vidRev].forEach(function (el) {
         if (!el) return;
-        el.style.width = w; el.style.height = h; el.style.transform = tr;
+        el.style.transform = tr;
       });
-      stage.style.setProperty("--fe", (g.S * AR < vw ? Math.round(g.S * AR * 0.04) : 0) + "px");
+      stage.style.setProperty("--fe", (g.S * AR < vw ? Math.round(G0.S * AR * 0.04) : 0) + "px");
       if (fill) fill.style.opacity = (1 - Math.min(1, g.q * 1.6)).toFixed(3);
+    }
+    var vidPlay = null, vidRevPlay = null;
+    function stopVidPlay() {
+      if (!vidPlay) return;
+      vidPlay.active = false; vidPlay = null;
+      if (vid) {
+        try { if (!vid.paused) vid.pause(); } catch (e) {}
+        vid.playbackRate = 1; vid.loop = true;
+      }
+    }
+    function stopVidRev() {
+      if (vidRevPlay) { vidRevPlay.active = false; vidRevPlay = null; }
+      stage.classList.remove("rev-on");
+      if (vidRev) {
+        try { if (!vidRev.paused) vidRev.pause(); } catch (e) {}
+        vidRev.playbackRate = 1;
+      }
+    }
+    function warmRevVideo() {
+      if (!vidRev || vidRevFailed || vidRevWarmed) return;
+      vidRevWarmed = true;
+      vidRev.preload = "auto";
+      vidRev.muted = true; vidRev.defaultMuted = true; vidRev.playsInline = true;
+      try { vidRev.load(); } catch (e) {}
+    }
+    function finishRev(targetT, after) {
+      function settle() {
+        stopVidRev();
+        tNow = targetT; vtTarget = targetT;
+        mode = "idle"; setWork(false); render(); settleStage();
+        if (after) after();
+      }
+      if (!vid || vidFailed || Math.abs((vid.currentTime || 0) - targetT) <= 0.06) { settle(); return; }
+      var done = false;
+      function complete() {
+        if (done) return;
+        done = true;
+        vid.removeEventListener("seeked", complete);
+        settle();
+      }
+      vid.addEventListener("seeked", complete, { once: true });
+      setTimeout(complete, 140);
+      try { vid.currentTime = targetT; } catch (e) { complete(); }
     }
     function markVidReady() {
       if (vidFailed || !vid || vid.readyState < 2 || !vid.videoWidth || vid.seeking) return;
-      if (vid.duration && Math.abs((vid.currentTime || 0) - tNow) > 0.25) return;
+      if (!(vidPlay && vidPlay.active) && vid.duration && Math.abs((vid.currentTime || 0) - tNow) > 0.25) return;
       if (!vidReady) { vidReady = true; stage.classList.add("vid-ready"); }
     }
     function syncAfterPrime() {
-      if (!vid || vidFailed) return;
+      if (!vid || vidFailed || mode !== "idle") return;
       if (!vid.paused) vid.pause();
       if (vid.duration && !vid.seeking && Math.abs(vid.currentTime - tNow) > 0.04) vid.currentTime = tNow;
       if (vid.readyState >= 2 && vid.videoWidth > 0 && Math.abs((vid.currentTime || 0) - tNow) < 0.25) markVidReady();
@@ -1703,11 +1824,11 @@
       vid.preload = "auto";
       vid.muted = true; vid.defaultMuted = true; vid.playsInline = true;
       if (vid.readyState >= 2 && vid.videoWidth > 0) {
-        if (vid.duration && Math.abs(vid.currentTime - tNow) > 0.04) vid.currentTime = tNow;
+        if (mode === "idle" && vid.duration && Math.abs(vid.currentTime - tNow) > 0.04) vid.currentTime = tNow;
         else markVidReady();
         return;
       }
-      if (!vidPriming && typeof vid.play === "function") {
+      if (mode === "idle" && !vidPriming && typeof vid.play === "function") {
         vidPriming = true;
         try {
           var p = vid.play();
@@ -1721,12 +1842,64 @@
       }
     }
     function seek(t) {
-      if (!vid || vidFailed || !vidWarmed || vidPriming) return;
+      if (!vid || vidFailed || !vidWarmed || vidPriming || (vidPlay && vidPlay.active) || (vidRevPlay && vidRevPlay.active)) return;
       if (vid.duration && !vid.seeking && Math.abs(vid.currentTime - t) > 0.012) vid.currentTime = t;
+    }
+    function startFallbackWorkAnim(done) {
+      stopVidPlay();
+      anim = { a: tNow, b: T_END, t0: performance.now(), d: reduce ? 1 : Math.max(400, Math.round((T_END - tNow) * 390)), done: done };
+      kick();
+    }
+    function startFallbackHomeAnim(targetT, after) {
+      stopVidRev();
+      anim = { a: tNow, b: targetT, t0: performance.now(), d: reduce ? 1 : Math.max(900, Math.round(Math.abs(tNow - targetT) * 300)), done: function () {
+        vtTarget = targetT; mode = "idle"; setWork(false); settleStage();
+        if (after) after();
+      } };
+      kick();
     }
     function frame(now) {
       raf = 0; var busy = false;
-      if (anim) {
+      if (vidPlay && vidPlay.active) {
+        if (!vid.paused && !vid.seeking && vid.readyState >= 2 && vid.videoWidth > 0) {
+          if (!vidReady) { vidReady = true; stage.classList.add("vid-ready"); }
+          var vt = vid.currentTime || 0;
+          if (vt > tNow) { tNow = Math.min(T_END, vt); vidPlay.lastMove = now; }
+        }
+        if (tNow >= T_END - 0.04 || vid.ended) {
+          var vpDone = vidPlay.done;
+          tNow = T_END; stopVidPlay(); render();
+          if (vpDone) vpDone();
+          return;
+        } else if (now - vidPlay.lastMove > 900) {
+          startFallbackWorkAnim(vidPlay.done);
+          return;
+        } else {
+          busy = true;
+        }
+      } else if (vidRevPlay && vidRevPlay.active) {
+        var rp = vidRevPlay, revDur = (vidRev && vidRev.duration) || (vid && vid.duration) || 9.084;
+        if (!vidRev.paused && !vidRev.seeking && vidRev.readyState >= 2 && vidRev.videoWidth > 0) {
+          stage.classList.add("rev-on");
+          var u = vidRev.currentTime || 0;
+          var tMap = Math.max(rp.targetT, Math.min(T_END, revDur - u));
+          if (tMap < tNow) { tNow = tMap; rp.lastMove = now; }
+        }
+        if (tNow <= rp.targetT + 0.04 || vidRev.ended) {
+          var rTarget = rp.targetT, rAfter = rp.after;
+          tNow = rTarget; render();
+          rp.active = false; vidRevPlay = null;
+          try { if (!vidRev.paused) vidRev.pause(); } catch (e) {}
+          vidRev.playbackRate = 1;
+          finishRev(rTarget, rAfter);
+          return;
+        } else if (now - rp.lastMove > 900) {
+          startFallbackHomeAnim(rp.targetT, rp.after);
+          return;
+        } else {
+          busy = true;
+        }
+      } else if (anim) {
         var k = Math.min(1, (now - anim.t0) / anim.d); tNow = anim.a + (anim.b - anim.a) * ease(k);
         if (k >= 1) { var done = anim.done; anim = null; if (done) done(); } else busy = true;
       } else if (mode === "idle") {
@@ -1739,6 +1912,12 @@
     function kick() { if (!raf) raf = requestAnimationFrame(frame); }
     if (vid) {
       vid.addEventListener("loadedmetadata", function () {
+        if (vidPlay && vidPlay.active) {
+          if (!vidPlay.synced && vid.duration && vid.currentTime < tNow - 0.15) {
+            vid.currentTime = tNow; vidPlay.synced = true;
+          }
+          kick(); return;
+        }
         if (!vidWarmed) return;
         if (!vidPriming && vid.duration && Math.abs(vid.currentTime - tNow) > 0.04) vid.currentTime = tNow;
         kick();
@@ -1746,9 +1925,9 @@
       vid.addEventListener("loadeddata", function () { if (!vidPriming) markVidReady(); kick(); });
       vid.addEventListener("canplay", function () { if (!vidPriming) markVidReady(); kick(); });
       vid.addEventListener("seeked", function () { if (!vidPriming) markVidReady(); kick(); });
-      vid.addEventListener("error", function () { vidFailed = true; stage.classList.add("vid-failed"); stage.classList.remove("vid-ready"); }, true);
+      vid.addEventListener("error", function () { vidFailed = true; stopVidPlay(); stage.classList.add("vid-failed"); stage.classList.remove("vid-ready"); }, true);
       var vidSources = vid.querySelectorAll("source"), lastVidSrc = vidSources[vidSources.length - 1];
-      if (lastVidSrc) lastVidSrc.addEventListener("error", function () { vidFailed = true; stage.classList.add("vid-failed"); stage.classList.remove("vid-ready"); });
+      if (lastVidSrc) lastVidSrc.addEventListener("error", function () { vidFailed = true; stopVidPlay(); stage.classList.add("vid-failed"); stage.classList.remove("vid-ready"); });
       function scheduleWarm() {
         if (vidWarmed || vidFailed) return;
         if ("requestIdleCallback" in window) requestIdleCallback(warmVideo, { timeout: 600 });
@@ -1757,7 +1936,7 @@
       if (document.readyState === "complete") scheduleWarm();
       else window.addEventListener("load", scheduleWarm, { once: true });
       function unlockVidGesture() {
-        if (vidReady || vidFailed || vidPriming) return;
+        if (mode !== "idle" || vidReady || vidFailed || vidPriming) return;
         if (!vidWarmed) { warmVideo(); return; }
         if (typeof vid.play === "function") {
           vid.muted = true; vid.playsInline = true;
@@ -1846,37 +2025,115 @@
 
     function openWork() {
       if (mode === "work" || mode === "toWork") { closeProject(); return; } /* the Work link again, while a project is open, brings the Work page back */
-      warmVideo();
-      w3Init(); /* the cards are built while the camera zooms in */
+      stopVidRev();
       if (phone.matches) { window.scrollTo(0, 0); stage.style.transform = ""; }
       mode = "toWork"; setWork(true); setMenu(false);
       settleStage();
-      anim = { a: tNow, b: T_END, t0: performance.now(), d: reduce ? 1 : Math.round((T_END - tNow) * 390), /* about 2.5 to 3 seconds: the video plays through the tablet scene and the camera zooms all the way into its screen */ done: function () {
+      function finishWork() {
         mode = "work";
+        w3Init();
+        warmRevVideo();
         pageEl.classList.add("open"); pageEl.setAttribute("aria-hidden", "false"); /* the zoom is finished: now the Work page opens, as a normal full-width page */
         w3Measure(); w3Wake();
-      } };
+      }
+      if (reduce || vidFailed || !vid || typeof vid.play !== "function") {
+        startFallbackWorkAnim(finishWork);
+        return;
+      }
+      anim = null; vidPriming = false; vidWarmed = true;
+      vid.preload = "auto"; vid.loop = false; vid.muted = true; vid.defaultMuted = true; vid.playsInline = true;
+      var synced = false;
+      if (vid.readyState >= 1 && vid.duration) {
+        if (Math.abs(vid.currentTime - tNow) > 0.08) vid.currentTime = tNow;
+        synced = true;
+      }
+      vid.playbackRate = 2.5;
+      vidPlay = { active: true, synced: synced, lastMove: performance.now(), done: finishWork };
+      if (vid.readyState >= 2 && vid.videoWidth > 0) { vidReady = true; stage.classList.add("vid-ready"); }
+      try {
+        var p = vid.play();
+        if (p && typeof p.then === "function") {
+          p.then(function () {
+            if (mode !== "toWork") { stopVidPlay(); return; }
+            if (vidPlay) vidPlay.lastMove = performance.now();
+            if (vid.readyState >= 2 && vid.videoWidth > 0) { vidReady = true; stage.classList.add("vid-ready"); }
+          }, function () {
+            if (mode === "toWork") startFallbackWorkAnim(finishWork);
+          });
+        }
+      } catch (e) {
+        startFallbackWorkAnim(finishWork);
+        return;
+      }
       kick();
     }
-    function closeWork() {
-      if (mode === "idle" || mode === "toHome") return;
+    function closeWork(opts) {
+      if (mode === "idle") return false;
+      var targetT = opts && typeof opts.targetT === "number" ? opts.targetT : vtTarget;
+      var after = opts && opts.after ? opts.after : null;
+      if (mode === "toHome") {
+        if (vidRevPlay) { vidRevPlay.targetT = targetT; vidRevPlay.after = after; }
+        else if (anim) { anim.b = targetT; anim.done = function () { vtTarget = targetT; mode = "idle"; setWork(false); settleStage(); if (after) after(); }; }
+        return true;
+      }
+      stopVidPlay();
       closeProject();
       pageEl.classList.remove("open"); pageEl.setAttribute("aria-hidden", "true");
-      mode = "toHome"; setWork(false);
-      anim = { a: tNow, b: vtTarget, t0: performance.now(), d: reduce ? 1 : Math.max(1200, Math.round(Math.abs(tNow - vtTarget) * 300)), done: function () { mode = "idle"; settleStage(); } };
+      setMenu(false);
+      if (opts && opts.resetTop) { vtTarget = T_START; if (window.scrollY > 0) { window.scrollTo(0, 0); band(); heroMotion(); } }
+      mode = "toHome";
+      if (reduce || vidFailed || vidRevFailed || !vidRev || typeof vidRev.play !== "function") {
+        startFallbackHomeAnim(targetT, after);
+        return true;
+      }
+      anim = null; vidRevWarmed = true;
+      vidRev.preload = "auto"; vidRev.muted = true; vidRev.defaultMuted = true; vidRev.playsInline = true;
+      var revDur = vidRev.duration || (vid && vid.duration) || 9.084;
+      var u0 = Math.max(0, revDur - tNow);
+      var synced = false;
+      if (vidRev.readyState >= 1 && vidRev.duration) {
+        if (Math.abs(vidRev.currentTime - u0) > 0.08) vidRev.currentTime = u0;
+        synced = true;
+      }
+      vidRev.playbackRate = 2.5;
+      vidRevPlay = { active: true, synced: synced, targetT: targetT, after: after, lastMove: performance.now() };
+      if (vidRev.readyState >= 2 && vidRev.videoWidth > 0 && !vidRev.seeking) stage.classList.add("rev-on");
+      try {
+        var pr = vidRev.play();
+        if (pr && typeof pr.then === "function") {
+          pr.then(function () {
+            if (mode !== "toHome" || !vidRevPlay) { stopVidRev(); return; }
+            vidRevPlay.lastMove = performance.now();
+            if (vidRev.readyState >= 2 && vidRev.videoWidth > 0 && !vidRev.seeking) stage.classList.add("rev-on");
+          }, function () {
+            if (mode === "toHome") startFallbackHomeAnim(targetT, after);
+          });
+        }
+      } catch (e) {
+        startFallbackHomeAnim(targetT, after);
+        return true;
+      }
       kick();
+      return true;
+    }
+    function goTab(el, targetT, resetTop) {
+      function scrollTarget() {
+        var y = el ? el.getBoundingClientRect().top + window.scrollY : 0;
+        window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
+      }
+      if (!closeWork({ targetT: targetT, resetTop: !!resetTop, after: el ? scrollTarget : null })) scrollTarget();
     }
     navLinks.forEach(function (a) {
       var id = a.getAttribute("href");
       if (id === "#work") a.addEventListener("click", function (e) { e.preventDefault(); openWork(); });
-      if (id === "#about") a.addEventListener("click", function (e) { e.preventDefault(); closeWork(); window.scrollTo({ top: aboutEl.getBoundingClientRect().top + window.scrollY, behavior: reduce ? "auto" : "smooth" }); });
-      if (id === "#home") a.addEventListener("click", function (e) { e.preventDefault(); closeWork(); window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
-      if (id === "#experience") a.addEventListener("click", function (e) { e.preventDefault(); closeWork(); window.scrollTo({ top: document.getElementById("experience").getBoundingClientRect().top + window.scrollY, behavior: reduce ? "auto" : "smooth" }); });
+      if (id === "#about") a.addEventListener("click", function (e) { e.preventDefault(); goTab(aboutEl, T_IDLE, false); });
+      if (id === "#home") a.addEventListener("click", function (e) { e.preventDefault(); goTab(null, T_START, true); });
+      if (id === "#experience") a.addEventListener("click", function (e) { e.preventDefault(); goTab(document.getElementById("experience"), T_IDLE, false); });
     });
-    Array.prototype.forEach.call(document.querySelectorAll('a[href="#contact"]:not(.hire):not(.hv)'), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); closeWork(); var c = document.getElementById("contact"); window.scrollTo({ top: c.getBoundingClientRect().top + window.scrollY, behavior: reduce ? "auto" : "smooth" }); }); });
-    Array.prototype.forEach.call(document.querySelectorAll("a[data-top]"), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); closeWork(); window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[href="#contact"]:not(.hire):not(.hv)'), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); goTab(document.getElementById("contact"), T_IDLE, false); }); });
+    Array.prototype.forEach.call(document.querySelectorAll("a[data-top]"), function (a) { a.addEventListener("click", function (e) { e.preventDefault(); goTab(null, T_START, true); }); });
     var cYear = document.getElementById("c-year"); if (cYear) cYear.textContent = new Date().getFullYear();
-    document.querySelector(".logo").addEventListener("click", function (e) { e.preventDefault(); closeWork(); window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
+    document.querySelector(".logo").addEventListener("click", function (e) { e.preventDefault(); goTab(null, T_START, true); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") { if (closeLightbox()) return; if (!closeProject()) closeWork(); } });
 
     /* ---- the Work page: a 3D carousel of project cards ----
@@ -2468,6 +2725,67 @@
     function update() { raf = 0; el.classList.toggle("is-stuck", el.scrollTop > 6); }
     el.addEventListener("scroll", function () { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
   });
+})();
+</script>
+<script>
+(function () { /* about stat cards: smooth transparent-white icons float upward on cursor hover */
+  var cards = document.querySelectorAll(".a-stat[data-fx]");
+  if (!cards.length) return;
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+  var SETS = {
+    tools: [
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5.5 14.5l3.5 3.5L12 21l3-3 3.5-3.5Z" fill="rgba(255,255,255,0.08)" stroke="currentColor" stroke-width="1.65" stroke-linejoin="round"/><path d="M12 3v7.5" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"/><circle cx="12" cy="12.2" r="1.4" fill="currentColor"/><path d="M8.5 21h7" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 3.6a2.1 2.1 0 0 1 3 3L8.2 18.2 4 19.5l1.3-4.2Z" fill="rgba(255,255,255,0.08)" stroke="currentColor" stroke-width="1.65" stroke-linejoin="round"/><path d="m14.2 6.2 3.6 3.6" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.6 3.4a2.1 2.1 0 0 1 2 2c0 1.4-4.7 6.3-7.6 9.2l-2.6-2.6C13.3 9.1 18.2 3.4 18.6 3.4Z" fill="rgba(255,255,255,0.08)" stroke="currentColor" stroke-width="1.65" stroke-linejoin="round"/><path d="M10.4 12c-2.5.4-4.1 2.1-4.3 4.3-.1 1.1-.8 2-1.8 2.4 1.8 1.2 4.9 1 6.7-.8 1.2-1.2 1.7-3 1.4-4.5" fill="rgba(255,255,255,0.08)" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.8 3.5 20.5 8.2 8.2 20.5 3.5 15.8Z" fill="rgba(255,255,255,0.08)" stroke="currentColor" stroke-width="1.65" stroke-linejoin="round"/><path d="m13 6.3 1.7 1.7M10.4 8.9l1.7 1.7M7.8 11.5l1.7 1.7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+    ],
+    arrows: [
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19.5V4.5M6.5 10 12 4.5 17.5 10" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 12.5 12 7l5.5 5.5M6.5 18 12 12.5 17.5 18" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    ],
+    smiles: [
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="rgba(255,255,255,0.08)" stroke="currentColor" stroke-width="1.65"/><circle cx="9" cy="10" r="1.15" fill="currentColor"/><circle cx="15" cy="10" r="1.15" fill="currentColor"/><path d="M8.3 14a4.4 4.4 0 0 0 7.4 0" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>',
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="rgba(255,255,255,0.08)" stroke="currentColor" stroke-width="1.65"/><path d="M7.6 10.4c.5-.9 1.5-.9 2 0M14.4 10.4c.5-.9 1.5-.9 2 0" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"/><path d="M8 13.8a4.6 4.6 0 0 0 8 0" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>'
+    ]
+  };
+  var MAX = 16, stops = [];
+  Array.prototype.forEach.call(cards, function (card) {
+    var layer = card.querySelector(".a-fx");
+    var icons = SETS[card.getAttribute("data-fx")];
+    if (!layer || !icons || !icons.length) return;
+    var kind = card.getAttribute("data-fx"), timer = 0, step = 0;
+    var tilt = kind === "arrows" ? 0 : 18;
+    function spawn(delay) {
+      if ((reduced && reduced.matches) || layer.childElementCount >= MAX) return;
+      var el = document.createElement("span");
+      el.className = "a-fx-i";
+      var spread = ((step % 5) - 2) * 16 + (Math.random() * 10 - 5);
+      var drift = spread + (Math.random() * 14 - 7);
+      var size = 16 + Math.round(Math.random() * 5);
+      el.style.setProperty("--sx", spread.toFixed(1) + "px");
+      el.style.setProperty("--mx", ((spread + drift) * 0.52).toFixed(1) + "px");
+      el.style.setProperty("--ex", drift.toFixed(1) + "px");
+      el.style.setProperty("--dy", (-98 - Math.round(Math.random() * 16)) + "px");
+      el.style.setProperty("--r1", (tilt ? (Math.random() * tilt - tilt * 0.5).toFixed(1) : "0") + "deg");
+      el.style.setProperty("--r2", (tilt ? (Math.random() * tilt - tilt * 0.5).toFixed(1) : "0") + "deg");
+      el.style.setProperty("--sz", size + "px");
+      el.style.setProperty("--dur", (1.75 + Math.random() * 0.25).toFixed(2) + "s");
+      el.style.setProperty("--dl", (delay || 0).toFixed(2) + "s");
+      el.innerHTML = icons[step % icons.length];
+      step += 1;
+      el.addEventListener("animationend", function () { if (el.parentNode) el.parentNode.removeChild(el); }, { once: true });
+      layer.appendChild(el);
+    }
+    function tap() { for (var i = 0; i < 3; i++) spawn(i * 0.21); }
+    function start() { stop(); spawn(0); timer = setInterval(function () { spawn(0); }, 210); }
+    function stop() { if (timer) { clearInterval(timer); timer = 0; } }
+    stops.push(stop);
+    card.addEventListener("pointerenter", function (e) { if (e.pointerType !== "touch") start(); });
+    card.addEventListener("pointerleave", stop);
+    card.addEventListener("pointercancel", stop);
+    card.addEventListener("click", function () { if (!timer) tap(); });
+  });
+  document.addEventListener("visibilitychange", function () { if (document.hidden) stops.forEach(function (fn) { fn(); }); });
 })();
 </script>
 </body>
